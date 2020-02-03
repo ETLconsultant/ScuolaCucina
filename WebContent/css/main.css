@@ -117,7 +117,7 @@ textarea:focus::-webkit-input-placeholder { color:transparent; }
 textarea:focus:-moz-placeholder { color:transparent; }
 textarea:focus::-moz-placeholder { color:transparent; }
 textarea:focus:-ms-input-placeholder { color:transparent; }
-
+ 
 input::-webkit-input-placeholder {color: #999999;}
 input:-moz-placeholder {color: #999999;}
 input::-moz-placeholder {color: #999999;}

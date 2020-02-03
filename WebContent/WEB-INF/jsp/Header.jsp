@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <style>
 .navbar li a, .navbar .navbar-brand {
 	color: #fff !important;

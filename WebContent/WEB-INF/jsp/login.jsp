@@ -38,7 +38,7 @@
 					<span class="login100-form-title-1">
 						Sign In
 					</span>
-				</div>
+				</div>  
 
 				<form class="login100-form validate-form">
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">

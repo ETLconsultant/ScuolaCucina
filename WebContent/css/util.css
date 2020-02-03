@@ -2825,7 +2825,7 @@
 	align-items: stretch;
 }
 
-.flex-col-sb {
+.flex-col-sb { 
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -moz-box;
