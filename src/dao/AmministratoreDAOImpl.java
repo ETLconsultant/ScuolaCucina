@@ -83,7 +83,7 @@ public class AmministratoreDAOImpl implements AmministratoreDAO {
 	 * lettura di tutti gli amministratori registrati
 	 */
 	@Override
-	public List<Utente> select() throws SQLException{
+	public ArrayList<Utente> select() throws SQLException{
 
 		ArrayList<Utente> amministratori = new ArrayList<Utente>(); 
 
