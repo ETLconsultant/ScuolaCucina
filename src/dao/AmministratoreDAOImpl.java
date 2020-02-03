@@ -95,7 +95,7 @@ public class AmministratoreDAOImpl implements AmministratoreDAO {
 			String password= rs.getString("password");
 			String nome= rs.getString("nome");
 			String cognome= rs.getString("cognome");
-			Date dataNascita = rs.getDate("dataNascita");
+			Date dataNascita = rs.getDate("dataNascita");  
 			String email= rs.getString("email");
 			String telefono= rs.getString("telefono");
 
