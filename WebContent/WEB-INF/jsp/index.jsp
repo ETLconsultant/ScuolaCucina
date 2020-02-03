@@ -8,6 +8,6 @@
 </head>
 <body>
 
-<jsp:include page="registraUtente.jsp"/>
+<jsp:include page="Home.jsp"/>
 </body>
 </html>
