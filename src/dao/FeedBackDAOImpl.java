@@ -35,10 +35,11 @@ public class FeedBackDAOImpl implements FeedbackDAO {
 		prepared.setInt(1, feedback.getIdEdizione());
 		prepared.setString(2, feedback.getIdUtente());
 		prepared.setString(3, feedback.getDescrizione());
-		prepared.setInt(3, feedback.getVoto());
+		prepared.setInt(4, feedback.getVoto());
 		
-		if(selectSingoloFeedback(feedback.getIdUtente(), feedback.getIdEdizione()) == null) {
+		if((selectSingoloFeedback(feedback.getIdUtente(), feedback.getIdEdizione()))==null) {
 			int numero = prepared.executeUpdate();
+
 			resultset = prepared.getGeneratedKeys();
 			if (resultset.next()) {
 				System.out.println("Auto Generated Primary Key " + resultset.getInt(1));
@@ -51,7 +52,7 @@ public class FeedBackDAOImpl implements FeedbackDAO {
 			throw new SQLException("feedback: " + feedback.getIdFeedback() + " già inserito");
 		}
 		
-		close();
+//		close();
 	}
 
 	/*
@@ -117,21 +118,26 @@ public class FeedBackDAOImpl implements FeedbackDAO {
 		
 			resultset = prepared.executeQuery();
 			
-			if(resultset != null) {
-				while(resultset.next()) {
+			
+				if(resultset.next()) {
 					feedback.setIdEdizione(idEdizione);
 					feedback.setIdUtente(idUtente);
 					feedback.setIdFeedback(resultset.getInt("id_feedback"));
 					feedback.setDescrizione(resultset.getString("descrizione"));
 					feedback.setVoto(resultset.getInt("voto"));
-				}
-				close();
-				return feedback;
+//					close();
+					return feedback;
+				} else {
+//			    	 close();
+			    	 return null;
+//					   throw new SQLException("Il feedback non esiste");
+					   
+				  
+               }
 			
-			}else {
-				close();
-				throw new SQLException("Il feedback non esiste");
-			}
+				
+			
+			   
 			
 	}
 
@@ -142,7 +148,7 @@ public class FeedBackDAOImpl implements FeedbackDAO {
 	@Override
 	public ArrayList<Feedback> selectPerEdizione(int idEdizione) throws SQLException {
 		// TODO Auto-generated method stub
-		ArrayList<Feedback> listaFeedback = null;
+		ArrayList<Feedback> listaFeedback = new ArrayList<Feedback>() ;
 		
 		String query = "select * from feedback where id_edizione = ?";
 		
@@ -177,7 +183,7 @@ public class FeedBackDAOImpl implements FeedbackDAO {
 	@Override
 	public ArrayList<Feedback> selectPerUtente(String idUtente) throws SQLException {
 		// TODO Auto-generated method stub
-		ArrayList<Feedback> listaFeedback = null;
+		ArrayList<Feedback> listaFeedback = new ArrayList<Feedback>();
 		String query = "select * from feedback where id_utente = ?";
 		
 		prepared = conn.prepareStatement(query);
@@ -212,10 +218,8 @@ public class FeedBackDAOImpl implements FeedbackDAO {
 	@Override
 	public ArrayList<Feedback> selectFeedbackPerCorso(int idCorso) throws SQLException {
 		// TODO Auto-generated method stub
-		ArrayList<Feedback> listaFeedback = null;
-		String query = "select feedback.id_feedback, feedback.id_utente, feedback.id_edizione, feedback.descrizione, feedback.voto from feedback, calendario where"
-						+ "feedback.id_edizione = calendario.id_edizione"
-						+ "and calendario.id_corso = ?";
+		ArrayList<Feedback> listaFeedback = new ArrayList<Feedback>();
+		String query = "select feedback.* from feedback, calendario where feedback.id_edizione = calendario.id_edizione and calendario.id_corso = ?";
 		
 		prepared = conn.prepareStatement(query);
 		prepared.setInt(1, idCorso);
