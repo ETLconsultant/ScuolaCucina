@@ -86,7 +86,6 @@
 	</servlet-mapping>
 
 
-
 	<welcome-file-list>
 		<welcome-file>cucina.jsp</welcome-file>
 		<welcome-file>index.html</welcome-file>
