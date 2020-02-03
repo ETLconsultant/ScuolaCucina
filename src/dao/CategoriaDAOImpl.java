@@ -1,10 +1,14 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entity.Categoria;
+import entity.Utente;
 import exceptions.ConnessioneException;
 
 public class CategoriaDAOImpl implements CategoriaDAO {
@@ -20,8 +24,14 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	 * 
 	 */
 	@Override
-	public void insert(String descrizione) throws SQLException {
-		// TODO Auto-generated method stub
+	public void insert(Categoria c) throws SQLException {
+		
+		PreparedStatement ps=conn.prepareStatement("insert into categoria(id_categoria, descrizione) values (?,?)");
+
+		ps.setInt(1, c.getIdCategoria());
+		ps.setString(2, c.getDescrizione());
+		
+		ps.executeUpdate();
 		
 	}
 	/*
@@ -31,7 +41,14 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	 */
 	@Override
 	public void update(Categoria c) throws SQLException {
-		// TODO Auto-generated method stub
+		
+		PreparedStatement ps=conn.prepareStatement("UPDATE categoria SET descrizione=?, where id_categoria=?");
+		ps.setString(1, c.getDescrizione());
+		ps.setInt(2, c.getIdCategoria());
+		
+		int n = ps.executeUpdate();
+		if(n==0)
+			throw new SQLException("Categoria: " + c.getIdCategoria() + " non presente");
 		
 	}
 
@@ -42,7 +59,12 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	 */
 	@Override
 	public void delete(int idCategoria) throws SQLException {
-		// TODO Auto-generated method stub
+		
+		PreparedStatement ps = conn.prepareStatement("DELETE from categoria WHERE id_categoria=?");
+		ps.setInt(1, idCategoria);
+		int n = ps.executeUpdate();
+		if(n==0)
+			throw new SQLException("Categoria: " + idCategoria + " non presente");
 		
 	}
 
@@ -52,8 +74,24 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	 */
 	@Override
 	public Categoria select(int idCategoria) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+
+		PreparedStatement ps=conn.prepareStatement("SELECT * FROM categoria where id_categoria =?");
+
+		ps.setInt(1, idCategoria);
+
+		ResultSet rs = ps.executeQuery();
+		Categoria cat = null;
+		
+		if(rs.next()){
+			int id_cat = rs.getInt("id_categoria");
+			String descrizione = rs.getString("descrizione");
+			
+
+			cat = new Categoria(id_cat, descrizione);
+			return cat;
+		}
+		else
+			throw new SQLException("categoria: " + idCategoria + " non presente");
 	}
 	
 	/*
@@ -62,8 +100,22 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	 */
 	@Override
 	public ArrayList<Categoria> select() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+
+		ArrayList<Categoria> lista_categorie = new ArrayList<Categoria>(); 
+
+		PreparedStatement ps=conn.prepareStatement("SELECT * FROM categoria");
+
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			int id_cat = rs.getInt("id_categoria");
+			String descrizione = rs.getString("descrizione");
+
+			Categoria cat = new Categoria(id_cat, descrizione);
+			lista_categorie.add(cat);
+			
+		}
+
+		return lista_categorie;
 	}
 
 }
