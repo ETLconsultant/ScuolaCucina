@@ -9,7 +9,7 @@ import exceptions.DAOException;
 
 public interface UtenteService {
 
-	void registrazioneUtente(Utente u) throws DAOException, SQLException; 
+	void registrazioneUtente(Utente u) throws DAOException, SQLException;  
 	Utente checkCredenziali(String idUtente,String psw) throws DAOException, SQLException; 
 	void cancellaRegistrazioneUtente(String idUtente) throws DAOException, SQLException;
 	void modificaDatiUtente(Utente u) throws DAOException, SQLException;

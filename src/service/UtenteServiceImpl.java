@@ -8,7 +8,7 @@ import dao.CatalogoDAOImpl;
 import dao.FeedBackDAOImpl;
 import dao.RegistrazioneUtenteDAO;
 import dao.RegistrazioneUtenteDAOImpl;
-import entity.Feedback;
+import entity.Feedback; 
 import entity.Utente;
 import exceptions.ConnessioneException;
 import exceptions.DAOException;

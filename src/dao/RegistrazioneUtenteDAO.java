@@ -8,7 +8,7 @@ import exceptions.DAOException;
 
 public interface RegistrazioneUtenteDAO {
 
-	void insert(Utente u) throws SQLException, DAOException;
+	void insert(Utente u) throws SQLException, DAOException; 
 	void update(Utente u) throws SQLException, DAOException;
 	void delete(String idUtente) throws SQLException, DAOException;
 	ArrayList<Utente> select() throws SQLException, DAOException;

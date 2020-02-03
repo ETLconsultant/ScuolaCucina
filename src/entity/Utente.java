@@ -150,7 +150,7 @@ public class Utente {
 		if (password == null) {
 			if (other.password != null)
 				return false;
-		} else if (!password.equals(other.password))
+		} else if (!password.equals(other.password)) 
 			return false;
 		if (telefono == null) {
 			if (other.telefono != null)

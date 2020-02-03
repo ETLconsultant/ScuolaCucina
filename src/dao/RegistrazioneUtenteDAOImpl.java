@@ -11,7 +11,7 @@ import exceptions.ConnessioneException;
 import exceptions.DAOException;
 
 
-public class RegistrazioneUtenteDAOImpl implements RegistrazioneUtenteDAO {
+public class RegistrazioneUtenteDAOImpl implements RegistrazioneUtenteDAO { 
 
 	private Connection conn;
 	private Statement statement;
