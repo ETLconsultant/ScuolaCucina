@@ -3,12 +3,15 @@ package entity;
 public class Feedback {
 	
 	private int idFeedback;
-	private String descrizione;
-	private int voto;
 	private int idEdizione;
 	private String idUtente;
+	private String descrizione;
+	private int voto;
 	
-	public Feedback(){}
+	
+	public Feedback(){
+		
+	}
 	
 	public Feedback(int idEdizione, String idUtente, String descrizione, int voto) {
 		this.descrizione = descrizione;
@@ -22,6 +25,7 @@ public class Feedback {
 		this.voto = voto;
 		this.idUtente=idUtente;
 	}
+	
 	public int getIdEdizione() {
 		return idEdizione;
 	}
@@ -60,6 +64,19 @@ public class Feedback {
 	
 	public void setVoto(int voto) {
 		this.voto = voto;
+	}
+
+	
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return super.equals(obj);
 	}
 
 	@Override

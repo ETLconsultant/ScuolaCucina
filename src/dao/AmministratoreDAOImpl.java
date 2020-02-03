@@ -83,7 +83,7 @@ public class AmministratoreDAOImpl implements AmministratoreDAO {
 	 * lettura di tutti gli amministratori registrati
 	 */
 	@Override
-	public List<Utente> select() throws SQLException{
+	public ArrayList<Utente> select() throws SQLException{
 
 		ArrayList<Utente> amministratori = new ArrayList<Utente>(); 
 
@@ -95,7 +95,7 @@ public class AmministratoreDAOImpl implements AmministratoreDAO {
 			String password= rs.getString("password");
 			String nome= rs.getString("nome");
 			String cognome= rs.getString("cognome");
-			Date dataNascita = rs.getDate("dataNascita");
+			Date dataNascita = rs.getDate("dataNascita");  
 			String email= rs.getString("email");
 			String telefono= rs.getString("telefono");
 
