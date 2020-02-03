@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import dao.CalendarioDAO;
 import dao.CalendarioDAOImpl;
+import dao.CatalogoDAO;
+import dao.CatalogoDAOImpl;
 import exceptions.ConnessioneException;
 
 /*
@@ -78,11 +80,14 @@ public class Carrello {
 	/*
 	 * il metodo ritorna il costo totale delle edizioni presenti nel carrello 
 	 */
-	public double getCostoTotale(){
+	public double getCostoTotale() throws ConnessioneException{
 		
-		// giorgio sta pensando come farlo
+		double somma = 0;
+		for(int i = 0 ; i < edizioniAcquistate.size(); i ++ ) {
+		somma += edizioniAcquistate.get(i).getCorso().getCosto();
+		}
 		
-		return 0.0;
+		return somma;
 	}
 	@Override
 	public String toString() {
