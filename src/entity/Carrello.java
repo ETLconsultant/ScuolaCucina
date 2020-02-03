@@ -84,7 +84,7 @@ public class Carrello {
 		
 		double somma = 0;
 		for(int i = 0 ; i < edizioniAcquistate.size(); i ++ ) {
-		somma += edizioniAcquistate.get(i).getCorso().getCosto();
+		somma += edizioniAcquistate.get(i).getCorso().getCosto();	//edizioniAcquistate contiene edizioni che contengono corso che contiene costo
 		}
 		
 		return somma;

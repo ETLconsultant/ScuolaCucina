@@ -1,86 +1,78 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <%@include file="Header.jsp"%>
+<link rel="stylesheet" type="text/css" href="css/form.css">
 </head>
- <body>
-  <form action="regUtente">
-	<table>
-	  
-		<tr height="50" align="center">
-			<th colspan="3" valign="middle">REGISTRAZIONE UTENTE</th>
-		</tr>
+<body>
+<div align="center">
+	<form action="regUtente">
 
-		<tr height="50" >
-			<td width="20%">Username</td>
-			<td width="40%"><input type="text" name="idUtente"></td>
-			<td width="40%"><c:forEach items="${lista}" var="errore">
-								<c:if test="${errore.campoValidato=='idUtente'}" > ${errore.descrizioneErrore}</c:if>
-							</c:forEach>
-		</tr>
-		<tr height="50" >
-			<td width="20%">Password</td>
-			<td width="40%"><input type="text" name="password"></td>
-			<td width="40%"><c:forEach items="${lista}" var="errore">
-								<c:if test="${errore.campoValidato=='password'}" > ${errore.descrizioneErrore}</c:if>
-							</c:forEach>
-		</tr>
-		<tr height="50" >
-			<td width="20%">Nome</td>
-			<td width="40%"><input type="text" name="nome"></td>
-			<td width="40%"><c:forEach items="${lista}" var="errore">
-								<c:if test="${errore.campoValidato=='nome'}" > ${errore.descrizioneErrore}</c:if>
-							</c:forEach>
-		</tr>
-		<tr height="50" >
-			<td width="20%">Cognome</td>
-			<td width="40%"><input type="text" name="cognome"></td>
-			<td width="40%"><c:forEach items="${lista}" var="errore">
-								<c:if test="${errore.campoValidato=='cognome'}" > ${errore.descrizioneErrore}</c:if>
-							</c:forEach>
-		</tr>
-		<tr height="50">
-			<td width="20%">Giorno di nascita</td>
-			<td width="40%"><select name="giorno">
-								<c:forEach begin="1" end="31" var="i" >
-									<option value="${i}">${i} </option> 
-								</c:forEach>								
-							</select> </td></tr>
-		<tr height="50"><td width="20%">Mese di nascita</td>
-		<td width="40%"><select name="mese">
-							<c:forEach begin="1" end="12" var="i" >
-								<option value="${i}">${i} </option>				
-							</c:forEach>				
-						</select> </td></tr>
+		<h3>REGISTRAZIONE UTENTE</h3> <br>
+		<h4>Username</h4> <br>
+		<input type="text" name="idUtente">
+		<c:forEach items="${lista}" var="errore">
+			<c:if test="${errore.campoValidato=='idUtente'}"> ${errore.descrizioneErrore}</c:if>
+		</c:forEach>
+<br>
 
-			
-		<tr height="50">
-		    <td width="20%">Anno di nascita</td>
-			<td width="40%"><input type="text" name="anno"></td> 
-			<td width="40%"><c:forEach items="${lista}" var="errore">
-								<c:if test="${errore.campoValidato=='anno'}" > ${errore.descrizioneErrore}</c:if>
-							</c:forEach></td></tr>
-		<tr height="50">
-			<td width="20%">EMail</td>
-			<td width="40%"><input type="text" name="email"></td>
-			<td width="40%"><c:forEach items="${lista}" var="errore">
-								<c:if test="${errore.campoValidato=='email'}" > ${errore.descrizioneErrore}</c:if>
-							</c:forEach></td></tr>
-		
-		<tr height="50">
-			<td width="20%">Telefono</td>
-			<td width="40%"><input type="text" name="telefono"></td>
-			<td width="40%"><c:forEach items="${lista}" var="errore">
-								<c:if test="${errore.campoValidato=='telefono'}" > ${errore.descrizioneErrore}</c:if>
-							</c:forEach></td></tr>
-		<tr height="50">
-			<th colspan="3" valign="middle"><input type="submit" value="registra" ><br></th>
-		</tr>
-	</table>
-   </form>
-  </body>
+		<h4>Password</h4> <br>
+		<input type="text" name="password">
+		<c:forEach items="${lista}" var="errore">
+			<c:if test="${errore.campoValidato=='password'}"> ${errore.descrizioneErrore}</c:if>
+		</c:forEach>
+<br>
+
+		<h4>Nome</h4> <br>
+		<input type="text" name="nome">
+		<c:forEach items="${lista}" var="errore">
+			<c:if test="${errore.campoValidato=='nome'}"> ${errore.descrizioneErrore}</c:if>
+		</c:forEach>
+<br>
+		<h4>Cognome</h4><br>
+		 <input type="text" name="cognome">
+		<c:forEach items="${lista}" var="errore">
+			<c:if test="${errore.campoValidato=='cognome'}"> ${errore.descrizioneErrore}</c:if>
+		</c:forEach>
+<br>
+		<h4>Giorno di nascita: </h4><select name="giorno">
+			<c:forEach begin="1" end="31" var="i">
+				<option value="${i}">${i}</option>
+			</c:forEach>
+		</select><br>
+		<h4> Mese di nascita: </h4><select name="mese">
+			<c:forEach begin="1" end="12" var="i">
+				<option value="${i}">${i}</option>
+			</c:forEach>
+		</select> <br>
+		<h4>Anno di nascita</h4><br>
+		<input type="text" name="anno">
+		<c:forEach items="${lista}" var="errore">
+			<c:if test="${errore.campoValidato=='anno'}"> ${errore.descrizioneErrore}</c:if>
+		</c:forEach>
+<br>
+		<h4>EMail</h4><br>
+		 <input type="text" name="email">
+		<c:forEach items="${lista}" var="errore">
+			<c:if test="${errore.campoValidato=='email'}"> ${errore.descrizioneErrore}</c:if>
+		</c:forEach>
+<br>
+
+		<h4>Telefono</h4> 
+		<br>
+		<input type="text" name="telefono">
+		<c:forEach items="${lista}" var="errore">
+			<c:if test="${errore.campoValidato=='telefono'}"> ${errore.descrizioneErrore}</c:if>
+		</c:forEach>
+		<br> <br> <br> <input type="submit" value="registra"
+			class="button"><br>
+
+	</form>
+	</div>
+	<%@include file="Footer.jsp"%>
+</body>
 </html>
 
