@@ -61,7 +61,7 @@
 		</c:forEach>
 <br>
 
-		<h4>Telefono</h4>
+		<h4>Telefono</h4> 
 		<br>
 		<input type="text" name="telefono">
 		<c:forEach items="${lista}" var="errore">
