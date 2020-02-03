@@ -28,6 +28,7 @@
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
+<%@include file="Header.jsp"%>
 </head>
 <body>
 	
@@ -40,7 +41,7 @@
 					</span>
 				</div>  
 
-				<form class="login100-form validate-form">
+				<form class="login100-form validate-form" action="Login">
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100">Username</span>
 						<input class="input100" type="text" name="username" placeholder="Enter username">
@@ -81,5 +82,6 @@
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	<%@include file="Footer.jsp"%>
 </body>
 </html>
