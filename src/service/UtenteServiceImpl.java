@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import dao.CatalogoDAO;
 import dao.CatalogoDAOImpl;
+import dao.FeedBackDAOImpl;
 import dao.RegistrazioneUtenteDAO;
 import dao.RegistrazioneUtenteDAOImpl;
 import entity.Feedback;
@@ -15,12 +16,24 @@ import exceptions.DAOException;
 public class UtenteServiceImpl implements UtenteService {
 
 	//dichiarare qui tutti i dao di cui si ha bisogno
-	private RegistrazioneUtenteDAO daoU;
+	private RegistrazioneUtenteDAOImpl daoU;
+	private FeedBackDAOImpl daoF;
 	//... dichiarazione di altri eventuali DAO
 	
 	//costruire qui tutti i dao di cui si ha bisogno
-	public  UtenteServiceImpl() throws ConnessioneException{
-		daoU = new RegistrazioneUtenteDAOImpl();
+	public  UtenteServiceImpl() {
+		try {
+			daoU = new RegistrazioneUtenteDAOImpl();
+		} catch (ConnessioneException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			daoF = new FeedBackDAOImpl();
+		} catch (ConnessioneException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//... costruzione dei altri eventuali dao
 	}
 	
@@ -29,12 +42,16 @@ public class UtenteServiceImpl implements UtenteService {
 	 * Se l'utente è già presente si solleva una eccezione
 	 */
 	@Override
-	public void registrazioneUtente(Utente u) throws DAOException {
+	public void registrazioneUtente(Utente u) throws DAOException, SQLException {
 		try {
 			daoU.insert(u);
-		} catch (SQLException e) {
-			throw new DAOException("impossibile inserire l'utente", e);
+		}catch(DAOException e) {
+			throw new DAOException("Utente già presente, impossibile inserire l'utente", e);
 		}
+		    
+			
+			
+		
 		
 	}
 
@@ -44,9 +61,15 @@ public class UtenteServiceImpl implements UtenteService {
 	 * Se l'utente non è presente si solleva una eccezione
 	 */
 	@Override
-	public Utente checkCredenziali(String idUtente, String psw) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+	public Utente checkCredenziali(String idUtente, String psw) throws DAOException, SQLException {
+		
+		try {
+			return daoU.select(idUtente, psw);
+		} catch (DAOException e) {
+			throw new DAOException("Utente non presente", e);
+			
+			
+		}
 	}
 
 	/*
@@ -57,8 +80,15 @@ public class UtenteServiceImpl implements UtenteService {
 	 * 
 	 */
 	@Override
-	public void cancellaRegistrazioneUtente(String idUtente) throws DAOException {
-		// TODO Auto-generated method stub
+	public void cancellaRegistrazioneUtente(String idUtente) throws DAOException, SQLException {
+		try {
+			daoU.delete(idUtente);
+		}catch (DAOException e) {
+			throw new DAOException("Utente non cancellabile", e);
+			
+			
+		}
+		
 		
 	}
 
@@ -68,8 +98,17 @@ public class UtenteServiceImpl implements UtenteService {
 	 * se l'utente non è presente si solleva una eccezione
 	 */
 	@Override
-	public void modificaDatiUtente(Utente u) throws DAOException {
-		// TODO Auto-generated method stub
+	public void modificaDatiUtente(Utente u) throws DAOException, SQLException {
+		try {
+			daoU.update(u);
+		}catch (DAOException e) {
+			throw new DAOException("Utente non presente", e);
+			
+			
+		}
+		
+		
+		
 		
 	}
 
@@ -78,9 +117,9 @@ public class UtenteServiceImpl implements UtenteService {
 	 * se non vi sono utenti il metodo ritorna una lista vuota
 	 */
 	@Override
-	public ArrayList<Utente> visualizzaUtentiRegistrati() throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Utente> visualizzaUtentiRegistrati() throws DAOException, SQLException {
+		return daoU.select();
+		 
 	}
 
 	/*
@@ -89,8 +128,8 @@ public class UtenteServiceImpl implements UtenteService {
 	 * se l'utente non può insierire un feedback si solleva una eccezione
 	 */
 	@Override
-	public void inserisciFeedback(Feedback f) throws DAOException {
-		// TODO Auto-generated method stub
+	public void inserisciFeedback(Feedback f) throws DAOException, SQLException {
+		daoF.insert(f);
 		
 	}
 
@@ -100,8 +139,8 @@ public class UtenteServiceImpl implements UtenteService {
 	 * se l'utente non può modificare un feedback si solleva una eccezione
 	 */
 	@Override
-	public void modificaFeedback(Feedback feedback) throws DAOException {
-		// TODO Auto-generated method stub
+	public void modificaFeedback(Feedback feedback) throws DAOException, SQLException {
+		daoF.update(feedback);
 		
 	}
 
@@ -111,8 +150,8 @@ public class UtenteServiceImpl implements UtenteService {
 	 * se l'utente non può cancellare un feedback si solleva una eccezione
 	 */
 	@Override
-	public void cancellaFeedback(int idFeedback) throws DAOException {
-		// TODO Auto-generated method stub
+	public void cancellaFeedback(int idFeedback) throws DAOException, SQLException {
+		daoF.delete(idFeedback);
 		
 	}
 
