@@ -74,6 +74,10 @@
 		<jsp-file>/WEB-INF/jsp/Home.jsp</jsp-file>
 	</servlet>
 	
+	<servlet-mapping>
+		<servlet-name>Home</servlet-name>
+		<url-pattern>/Home.jsp</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>login</servlet-name>
