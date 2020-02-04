@@ -141,10 +141,17 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 			if (dataFine.before(new java.util.Date()))
 				ed.setTerminata(true);
 			return ed;
-		} else 
-			throw new SQLException("edizione " + idEdizione + " non presente");
-	  
-	  
+		} else {
+			try {
+				
+				throw new SQLException("edizione " + idEdizione + " non presente");
+			
+			}catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+			}
+			
+		}
 	}
 
 	/*

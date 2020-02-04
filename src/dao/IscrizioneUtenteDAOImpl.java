@@ -14,7 +14,7 @@ import exceptions.ConnessioneException;
 public class IscrizioneUtenteDAOImpl implements IscrizioneUtenteDAO {
 
 	private Connection conn;
-
+	
 	public IscrizioneUtenteDAOImpl() throws ConnessioneException{
 		conn = SingletonConnection.getInstance();
 	}
@@ -27,11 +27,13 @@ public class IscrizioneUtenteDAOImpl implements IscrizioneUtenteDAO {
 	@Override
 	public void iscriviUtente(int idEdizione, String idUtente) throws SQLException {
 		
-		PreparedStatement ps=conn.prepareStatement("INSERT INTO iscritti(id_edizione,id_utente) VALUES (?,?)");
+		PreparedStatement ps =conn.prepareStatement("INSERT INTO iscritti (id_edizione, id_utente) VALUES (?,?)");
 		ps.setInt(1, idEdizione);
 		ps.setString(2, idUtente);
 		
 		ps.executeUpdate();
+		
+		
 	}
 
 	/*
@@ -86,11 +88,17 @@ public class IscrizioneUtenteDAOImpl implements IscrizioneUtenteDAO {
 	 */
 	@Override
 	public ArrayList<Utente> selectUtentiPerEdizione(int idEdizione) throws SQLException {
+		
+//		CalendarioDAOImpl ed = new CalendarioDAOImpl();
+		ArrayList<Edizione> edizioni = new ArrayList<Edizione>(); 
+		
+//		if((ed.selectEdizione(idEdizione) != null) || (getNumeroIscritti(idEdizione) == 0)) {  
+			
 
 		ArrayList<Utente> utenti = new ArrayList<Utente>(); 
 
 		PreparedStatement ps=conn.prepareStatement("SELECT * FROM registrati, iscritti WHERE iscritti.id_utente=registrati.id_utente AND iscritti.id_edizione=?");
-		
+
 		ps.setInt(1, idEdizione);
 		
 		ResultSet rs = ps.executeQuery();
