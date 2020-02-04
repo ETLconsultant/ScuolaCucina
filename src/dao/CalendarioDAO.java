@@ -13,7 +13,7 @@ public interface CalendarioDAO {
 	
 	public void delete(int idEdizione) throws SQLException;
 	
-	public void update(Edizione e) throws SQLException;
+	public void update(int idEdizione) throws SQLException;
 	
 	public Edizione selectEdizione(int idEdizione) throws SQLException;
 	
