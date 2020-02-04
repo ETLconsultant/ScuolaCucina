@@ -16,6 +16,8 @@ import exceptions.ConnessioneException;
 public class CatalogoDAOImpl implements CatalogoDAO {
 
 	private Connection conn;
+	private PreparedStatement ps;
+	private ResultSet resultset; 
 
 	public CatalogoDAOImpl() throws ConnessioneException{
 		conn = SingletonConnection.getInstance();
@@ -26,15 +28,27 @@ public class CatalogoDAOImpl implements CatalogoDAO {
 	 */
 	@Override
 	public void insert(Corso corso) throws SQLException {
-		PreparedStatement ps=conn.prepareStatement("INSERT INTO catalogo(id_corso, titolo, id_categoria, numeromaxpartecipanti, costo, descrizione) VALUES (?,?,?,?,?,?)");
-		ps.setInt(1, corso.getCodice());
-		ps.setString(2, corso.getTitolo());
-		ps.setInt(3, corso.getIdCategoria() );
-		ps.setInt(4, corso.getMaxPartecipanti());
-		ps.setDouble(5, corso.getCosto());
-		ps.setString(6, corso.getDescrizione());
 		
-		ps.executeUpdate();
+		String query = "INSERT INTO catalogo(titolo, id_categoria, numeromaxpartecipanti, costo, descrizione) VALUES (?,?,?,?,?)";
+		
+		ps = conn.prepareStatement(query, ps.RETURN_GENERATED_KEYS);
+		
+		ps.setString(1, corso.getTitolo());
+		ps.setInt(2, corso.getIdCategoria() );
+		ps.setInt(3, corso.getMaxPartecipanti());
+		ps.setDouble(4, corso.getCosto());
+		ps.setString(5, corso.getDescrizione());
+		
+		int count = ps.executeUpdate();
+		
+		resultset = ps.getGeneratedKeys();
+		if (resultset.next()) {
+			System.out.println("Auto Generated Primary Key " + resultset.getInt(1));
+			corso.setCodice(resultset.getInt(1));
+		}
+		if(count>0) {
+			System.out.println("Feedback inserito correttamente");
+		}
 	}
 
 	/*
@@ -44,13 +58,16 @@ public class CatalogoDAOImpl implements CatalogoDAO {
 	 */
 	@Override
 	public void update(Corso corso) throws SQLException {
-		PreparedStatement ps=conn.prepareStatement("UPDATE catalogo SET titolo=?, id_categoria=?, numeromaxpartecipanti=?, costo=?, descrizione=? where id_corso=?");
-		ps.setInt(6, corso.getCodice());
+		
+		ps=conn.prepareStatement("UPDATE catalogo SET titolo=?, id_categoria=?, numeromaxpartecipanti=?, costo=?, descrizione=? where id_corso=?");
+		
 		ps.setString(1, corso.getTitolo());
 		ps.setInt(2, corso.getIdCategoria() );
 		ps.setInt(3, corso.getMaxPartecipanti());
 		ps.setDouble(4, corso.getCosto());
 		ps.setString(5, corso.getDescrizione());
+		ps.setInt(6, corso.getCodice());
+		
 		int n = ps.executeUpdate();
 		if(n==0)
 			throw new SQLException("corso: " + corso.getCodice() + " non presente");
@@ -64,13 +81,13 @@ public class CatalogoDAOImpl implements CatalogoDAO {
 	 * Se non è cancellabile si solleva una eccezione
 	 */
 	@Override
-	public void delete(int idCorso) throws SQLException {
+	public void delete(Corso corso) throws SQLException {
 		
 		PreparedStatement ps = conn.prepareStatement("DELETE FROM catalogo WHERE id_corso=?");
-		ps.setInt(1, idCorso);
+		ps.setInt(1, corso.getCodice());
 		int n = ps.executeUpdate();
 		if(n==0)
-			throw new SQLException("corso con id " + idCorso + " non presente");
+			throw new SQLException("corso con id " + corso.getCodice() + " non presente");
 	}
 
 	/*
@@ -130,6 +147,19 @@ public class CatalogoDAOImpl implements CatalogoDAO {
 	}
 	
 	
+	public static void main(String[] args) throws Exception{
+		CatalogoDAO catdao= new CatalogoDAOImpl();
+		Corso c2 = new Corso("miocorso 2", 48, 33, 250, "in questo corso non si fa niente di niente");
+		Corso c = new Corso("miocorso", 48, 33, 250, "il questo corso non si fa nienet");
+//		catdao.insert(c);
+		
+		catdao.delete(c);
+		
+//		u.setCognome("Doria");
+//		catdao.delete("aa");
+		catdao.update(c);
+//		System.out.println(catdao.select("marco81"));
+	}
 
 
 }
