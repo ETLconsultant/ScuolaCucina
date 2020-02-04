@@ -82,6 +82,13 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 		//Eliminazione utenti
 //		query = "delete from registrati where registrati.id_utente =iscritti.id_utente and iscritti.id_edizione = calendario.id_edizione and id_edizione = ?";
 		
+		String medda = "select registrati.id_utente from registrati inner join iscritti on iscritti.id_utente = registrati.id_utente and iscritti.id_edizione = ?";
+		String idUtente ;
+		
+		ps = conn.prepareStatement(query);
+		ps.setInt(1, idEdizione);
+		
+		
 		query = "delete registrati from registrati where (select registrati.id_utente from registrati inner join iscritti on iscritti.id_utente = registrati.id_utente and iscritti.id_edizione = ?)";
 		ps = conn.prepareStatement(query);
 		ps.setInt(1, idEdizione);
