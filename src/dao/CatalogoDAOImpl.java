@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import entity.Categoria;
 import entity.Corso;
+import entity.Edizione;
 import entity.Feedback;
 import entity.Utente;
 import exceptions.ConnessioneException;
@@ -59,6 +60,9 @@ public class CatalogoDAOImpl implements CatalogoDAO {
 	@Override
 	public void update(Corso corso) throws SQLException {
 		
+		Corso c1 = new Corso();
+		c1 = select(corso.getCodice());
+	
 		ps=conn.prepareStatement("UPDATE catalogo SET titolo=?, id_categoria=?, numeromaxpartecipanti=?, costo=?, descrizione=? where id_corso=?");
 		
 		ps.setString(1, corso.getTitolo());
@@ -76,18 +80,19 @@ public class CatalogoDAOImpl implements CatalogoDAO {
 
 	/*
 	 * cancellazione di un nuovo corso nel catalogo dei corsi
-	 * questo potrà essere cancellato solo se non vi sono edizioni di quel corso o qualsiasi altro legame con gli altri dati 
+	 * questo potrà essere cancellato solo se non vi sono edizioni di quel corso o qualsiasi altro legame con gli altri dati A CALENDARIO
 	 * Se il corso non esiste si solleva una eccezione
 	 * Se non è cancellabile si solleva una eccezione
 	 */
 	@Override
-	public void delete(Corso corso) throws SQLException {
+	public void delete(int idCorso) throws SQLException {
 		
-		PreparedStatement ps = conn.prepareStatement("DELETE FROM catalogo WHERE id_corso=?");
-		ps.setInt(1, corso.getCodice());
+		
+		PreparedStatement ps = conn.prepareStatement("DELETE FROM catalogo WHERE id_corso=? and id_corso NOT IN calendario ");
+		ps.setInt(1, idCorso);
 		int n = ps.executeUpdate();
 		if(n==0)
-			throw new SQLException("corso con id " + corso.getCodice() + " non presente");
+			throw new SQLException("corso con id " + idCorso + " non presente");
 	}
 
 	/*
@@ -174,15 +179,16 @@ public ArrayList<Corso> selectByIdCategoria(int idCategoria) throws SQLException
 	
 	public static void main(String[] args) throws Exception{
 		CatalogoDAO catdao= new CatalogoDAOImpl();
-		Corso c2 = new Corso("miocorso 2", 48, 33, 250, "in questo corso non si fa niente di niente");
-		Corso c = new Corso("miocorso", 48, 33, 250, "il questo corso non si fa nienet");
+		Corso c2 = new Corso("miocorso 33", 48, 33, 250, "nuovo corso inutile");
+		
 //		catdao.insert(c);
 		
-		catdao.delete(c);
+//		catdao.delete(99);
+		catdao.update(c2);
 		
 //		u.setCognome("Doria");
 //		catdao.delete("aa");
-		catdao.update(c);
+	
 //		System.out.println(catdao.select("marco81"));
 	}
 
