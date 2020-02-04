@@ -12,6 +12,7 @@ public interface CatalogoDAO {
 	void update(Corso corso) throws SQLException;
 //	void delete(int idCorso) throws SQLException;
 	ArrayList<Corso> select() throws SQLException;
+	ArrayList<Corso> selectByIdCategoria(int idCategoria) throws SQLException;
 	Corso select(int idCorso) throws SQLException;
 	void delete(Corso corso) throws SQLException;
 
