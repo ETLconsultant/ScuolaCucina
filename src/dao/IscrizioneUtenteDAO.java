@@ -7,9 +7,15 @@ import entity.Utente;
 
 public interface IscrizioneUtenteDAO {
 
-	void iscriviUtente(int idEdizione, String idUtente) throws SQLException;
-	void cancellaIscrizioneUtente(int idEdizione, String idUtente) throws SQLException;
-	ArrayList<Edizione> selectIscrizioniUtente(String idUtente) throws SQLException;
-	ArrayList<Utente> selectUtentiPerEdizione(int idEdizione) throws SQLException;
-	int getNumeroIscritti(int idEdizione) throws SQLException;
+	public void iscriviUtente(int idEdizione, String idUtente) throws SQLException;
+	
+	public void cancellaIscrizioneUtente(int idEdizione, String idUtente) throws SQLException;
+	
+	public ArrayList<Edizione> selectIscrizioniUtente(String idUtente) throws SQLException;
+	
+	public ArrayList<Utente> selectUtentiPerEdizione(int idEdizione) throws SQLException;
+	
+	public int getNumeroIscritti(int idEdizione) throws SQLException;
+	
+	public void close();
 }
