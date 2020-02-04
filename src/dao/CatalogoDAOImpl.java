@@ -60,13 +60,12 @@ public class CatalogoDAOImpl implements CatalogoDAO {
 	@Override
 	public void update(Corso corso) throws SQLException {
 		
-		Corso c1 = new Corso();
-		c1 = select(corso.getCodice());
+	
 	
 		ps=conn.prepareStatement("UPDATE catalogo SET titolo=?, id_categoria=?, numeromaxpartecipanti=?, costo=?, descrizione=? where id_corso=?");
 		
 		ps.setString(1, corso.getTitolo());
-		ps.setInt(2, corso.getIdCategoria() );
+		ps.setInt(2, corso.getIdCategoria());
 		ps.setInt(3, corso.getMaxPartecipanti());
 		ps.setDouble(4, corso.getCosto());
 		ps.setString(5, corso.getDescrizione());
@@ -109,14 +108,16 @@ public class CatalogoDAOImpl implements CatalogoDAO {
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()){
 			
+			int id_corso = rs.getInt("id_corso");
 			String titolo= rs.getString("titolo");
 			int id_categoria= rs.getInt("id_categoria");
 			int numeromaxpartecipanti= rs.getInt("numeromaxpartecipanti");
 			double costo =  rs.getDouble("costo");
 			String descrizione= rs.getString("descrizione");
 			
-
+			
 			Corso corso = new Corso( titolo, id_categoria, numeromaxpartecipanti, costo, descrizione);
+			corso.setCodice(id_corso);
 			corsi.add(corso);
 		}
 
@@ -134,6 +135,7 @@ public ArrayList<Corso> selectByIdCategoria(int idCategoria) throws SQLException
 		while(rs.next()){
 			
 			
+			int id_corso = rs.getInt("id_corso");
 			String titolo= rs.getString("titolo");
 			int id_categoria= rs.getInt("id_categoria");
 			int numeromaxpartecipanti= rs.getInt("numeromaxpartecipanti");
@@ -142,6 +144,7 @@ public ArrayList<Corso> selectByIdCategoria(int idCategoria) throws SQLException
 			
 
 			Corso corso = new Corso( titolo, id_categoria, numeromaxpartecipanti, costo, descrizione);
+			corso.setCodice(id_corso);
 			corsi.add(corso);
 		}
 
@@ -182,14 +185,18 @@ public ArrayList<Corso> selectByIdCategoria(int idCategoria) throws SQLException
 		Corso c2 = new Corso("miocorso 33", 48, 33, 250, "nuovo corso inutile");
 		
 //		catdao.insert(c);
-		
+//		c2.setCodice(100);
 //		catdao.delete(99);
-		catdao.update(c2);
+//		catdao.update(c2);
+//		
+//		ArrayList<Corso> listcorsi = new ArrayList<Corso>();
+//		
+//		listcorsi = catdao.select();
+//		
+//		System.out.println(listcorsi);
 		
-//		u.setCognome("Doria");
-//		catdao.delete("aa");
-	
-//		System.out.println(catdao.select("marco81"));
+//		OK METODI 
+		
 	}
 
 
