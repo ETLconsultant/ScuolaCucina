@@ -30,6 +30,5 @@ public interface CalendarioDAO {
 	public ArrayList<Edizione> select(String idUtente) throws SQLException;
 	
 	public ArrayList<Edizione> select(String idUtente, boolean future) throws SQLException;
-	
 
 }
