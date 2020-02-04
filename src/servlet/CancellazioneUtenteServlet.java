@@ -59,18 +59,14 @@ public class CancellazioneUtenteServlet extends HttpServlet {
 		
 		try {
 			us.cancellaRegistrazioneUtente(idUtente);
-			request.setAttribute("msg1", "Cancellazione avvenuta con successo. Torna presto a trovarci!");
-			sessione.invalidate();
-			RequestDispatcher rd =request.getRequestDispatcher("/Home.jsp"); 
-			rd.forward(request, response);
-			
-		} catch (DAOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+		}
+		request.setAttribute("msg1", "Cancellazione avvenuta con successo. Torna presto a trovarci!");
+		sessione.invalidate();
+		RequestDispatcher rd =request.getRequestDispatcher("/Home.jsp"); 
+		rd.forward(request, response); 
 
 		
 	}

@@ -36,24 +36,19 @@ public class RegistrazioneUtenteServlet extends HttpServlet {
 		}
 
 		UtenteService serviceU;
+		serviceU = new UtenteServiceImpl();
+
+		Utente u = this.getUtenteFromQueryString(request);
+
+
 		try {
-			serviceU = new UtenteServiceImpl();
-
-			Utente u = this.getUtenteFromQueryString(request);
-
-
 			serviceU.registrazioneUtente(u);
-			request.setAttribute("user", u);
-			getServletContext().getRequestDispatcher("/WEB-INF/jsp/registrazioneUtenteOk.jsp").forward(request, response);
-
-		} catch (DAOException e) {
-			e.printStackTrace();
-			request.setAttribute("errore", e);
-			getServletContext().getRequestDispatcher("/WEB-INF/jsp/erroreGenerico.jsp").forward(request, response);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		request.setAttribute("user", u);
+		getServletContext().getRequestDispatcher("/WEB-INF/jsp/registrazioneUtenteOk.jsp").forward(request, response);
 
 	}
 
