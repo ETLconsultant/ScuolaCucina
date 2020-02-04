@@ -92,6 +92,8 @@ public class IscrizioneUtenteDAOImpl implements IscrizioneUtenteDAO {
 //		CalendarioDAOImpl ed = new CalendarioDAOImpl();
 		ArrayList<Edizione> edizioni = new ArrayList<Edizione>(); 
 		
+		if()
+		
 //		if((ed.selectEdizione(idEdizione) != null) || (getNumeroIscritti(idEdizione) == 0)) {  
 			
 
