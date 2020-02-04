@@ -115,8 +115,9 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 	 */
 	@Override
 	public void update(Edizione ed) throws SQLException{
-			PreparedStatement ps=conn.prepareStatement("update calendario set dataInizio=?, durata=?, aula=?, docente=? where id_edizione= ?");
+			PreparedStatement ps=conn.prepareStatement("update calendario set id_corso=?, dataInizio=?, durata=?, aula=?, docente=? where id_edizione= ?");
 
+			ps.setInt(1,ed.getDurata());
 			ps.setDate(1,new java.sql.Date(ed.getDataInizio().getTime()));
 			ps.setInt(2,ed.getDurata());
 			ps.setString(3,ed.getAula());
