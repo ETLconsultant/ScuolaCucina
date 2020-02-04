@@ -14,6 +14,8 @@ import exceptions.ConnessioneException;
 public class CategoriaDAOImpl implements CategoriaDAO {
 
 	private Connection conn;
+	private PreparedStatement prepared;
+	private ResultSet resultset; 
 
 	public CategoriaDAOImpl() throws ConnessioneException{
 		conn = SingletonConnection.getInstance();
@@ -26,12 +28,20 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	@Override
 	public void insert(Categoria c) throws SQLException {
 		
-		PreparedStatement ps=conn.prepareStatement("insert into categoria(id_categoria, descrizione) values (?,?)");
-
-		ps.setInt(1, c.getIdCategoria());
-		ps.setString(2, c.getDescrizione());
 		
-		ps.executeUpdate();
+		String query = "insert into categoria(descrizione) values (?)";
+
+		prepared= conn.prepareStatement(query, prepared.RETURN_GENERATED_KEYS);
+		prepared.setString(1, c.getDescrizione());
+		
+		int numero = prepared.executeUpdate();
+		resultset = prepared.getGeneratedKeys();
+		if(numero>0) {
+			resultset.next();
+			System.out.println("Auto Generated Primary Key " + resultset.getInt(1));
+			c.setIdCategoria(resultset.getInt(1));
+			System.out.println("Categoria inserita correttamente");
+		}
 		
 	}
 	/*
@@ -42,7 +52,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	@Override
 	public void update(Categoria c) throws SQLException {
 		
-		PreparedStatement ps=conn.prepareStatement("UPDATE categoria SET descrizione=?, where id_categoria=?");
+		PreparedStatement ps=conn.prepareStatement("UPDATE categoria SET descrizione=? where id_categoria=?");
 		ps.setString(1, c.getDescrizione());
 		ps.setInt(2, c.getIdCategoria());
 		
