@@ -6,6 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
+
+import entity.Corso;
 import entity.Edizione;
 import entity.Feedback;
 import entity.Utente;
@@ -307,8 +311,63 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 	 */
 	@Override
 	public ArrayList<Edizione> select(java.util.Date da, java.util.Date a) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		//		long diffInMillies = Math.abs(a.getTime() - da.getTime());
+		//		long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+		String query = "select * from calendario where (dataInizio between ? and ?)";
+
+		PreparedStatement statement = conn.prepareStatement(query);
+		//		new java.sql.Date sqlDa = java.sql.Date(da);
+		statement.setDate(1, new java.sql.Date(da.getTime())); 
+		statement.setDate(2, new java.sql.Date(a.getTime()));
+		System.out.println("statement: " + statement);
+
+		ResultSet resultset  = statement.executeQuery();
+
+		ArrayList<Edizione> arrayList = new ArrayList<Edizione>();
+
+		while(resultset.next()) {
+			System.out.println("nel while");
+			int id_edizione = resultset.getInt("id_edizione");
+			int id_corso = resultset.getInt("id_corso");
+			Date dataInizio = resultset.getDate("dataInizio");
+			long durata = resultset.getLong("durata");
+			String aula = resultset.getString("aula");
+			String docente = resultset.getString("docente");
+
+			try {
+				CatalogoDAOImpl catalogoDAOImpl = new CatalogoDAOImpl();
+				Corso corso = catalogoDAOImpl.select(id_corso);
+				Calendar todayCalendar = Calendar.getInstance();
+				todayCalendar.set(Calendar.HOUR_OF_DAY, 0);
+				todayCalendar.set(Calendar.MINUTE, 0);
+				todayCalendar.set(Calendar.SECOND, 0);
+				
+				Date today = (Date)todayCalendar.getTime();
+
+				boolean terminata = (today.getTime() > (dataInizio.getTime() + TimeUnit.MILLISECONDS.convert(durata, TimeUnit.MILLISECONDS)));
+				Edizione e = new Edizione();
+
+				e.setAula(aula);
+				e.setCodice(id_edizione);
+				e.setCorso(corso);
+				e.setDataInizio(dataInizio);
+				e.setDocente(docente);
+				e.setDurata((int)durata);
+				e.setIdCorso(id_corso);
+				e.setTerminata(terminata);
+
+				arrayList.add(e);
+
+			} catch (ConnessioneException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+
+		}
+
+		return arrayList;
 	}
 
 	/*
