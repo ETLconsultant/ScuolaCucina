@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -45,10 +46,13 @@ public class RegistrazioneUtenteServlet extends HttpServlet {
 			request.setAttribute("user", u);
 			getServletContext().getRequestDispatcher("/WEB-INF/jsp/registrazioneUtenteOk.jsp").forward(request, response);
 
-		} catch (DAOException | ConnessioneException e) {
+		} catch (DAOException e) {
 			e.printStackTrace();
 			request.setAttribute("errore", e);
 			getServletContext().getRequestDispatcher("/WEB-INF/jsp/erroreGenerico.jsp").forward(request, response);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
