@@ -117,6 +117,31 @@ public class CatalogoDAOImpl implements CatalogoDAO {
 
 		return corsi;
 	}
+	
+public ArrayList<Corso> selectByIdCategoria(int idCategoria) throws SQLException {
+		
+		ArrayList<Corso> corsi = new ArrayList<Corso>(); 
+
+		PreparedStatement ps=conn.prepareStatement("SELECT * FROM catalogo where id_categoria = ? ");
+
+		ps.setInt(1, idCategoria );
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			
+			
+			String titolo= rs.getString("titolo");
+			int id_categoria= rs.getInt("id_categoria");
+			int numeromaxpartecipanti= rs.getInt("numeromaxpartecipanti");
+			double costo =  rs.getDouble("costo");
+			String descrizione= rs.getString("descrizione");
+			
+
+			Corso corso = new Corso( titolo, id_categoria, numeromaxpartecipanti, costo, descrizione);
+			corsi.add(corso);
+		}
+
+		return corsi;
+	}
 
 	/*
 	 * lettura di un singolo corso dal catalogo dei corsi
