@@ -1,7 +1,8 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
+
+import java.util.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -343,7 +344,7 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 				todayCalendar.set(Calendar.MINUTE, 0);
 				todayCalendar.set(Calendar.SECOND, 0);
 				
-				Date today = (Date)todayCalendar.getTime();
+				Date today = todayCalendar.getTime();
 
 				boolean terminata = (today.getTime() > (dataInizio.getTime() + TimeUnit.MILLISECONDS.convert(durata, TimeUnit.MILLISECONDS)));
 				Edizione e = new Edizione();
