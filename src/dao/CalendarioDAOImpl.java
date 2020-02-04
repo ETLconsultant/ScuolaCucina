@@ -77,36 +77,16 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 		int numeroRighe = ps.executeUpdate();
 		if(numeroRighe>0) {
 			System.out.println("feedback cancellati");
-		}else if(numeroRighe == 0) {
-			try {
-				throw new SQLException("feedback non presenti per questa edizione");
-			}catch(SQLException e){
-				e.printStackTrace();
-			}
 		}
-		//Eliminazione utenti
-//		query = "delete from registrati where registrati.id_utente =iscritti.id_utente and iscritti.id_edizione = calendario.id_edizione and id_edizione = ?";
-		
-		String medda = "select registrati.id_utente from registrati inner join iscritti on iscritti.id_utente = registrati.id_utente and iscritti.id_edizione = ?";
-		String idUtente ;
-		
-		ps = conn.prepareStatement(query);
-		ps.setInt(1, idEdizione);
-		
-		
-		query = "delete registrati from registrati where (select registrati.id_utente from registrati inner join iscritti on iscritti.id_utente = registrati.id_utente and iscritti.id_edizione = ?)";
-		ps = conn.prepareStatement(query);
-		ps.setInt(1, idEdizione);
-		numeroRighe = ps.executeUpdate();
-		if(numeroRighe>0) {
-			System.out.println("utenti cancellati");
-		}else if(numeroRighe == 0) {
-			try {
-				throw new SQLException("utenti non presenti per questa edizione");
-			}catch(SQLException e){
-				e.printStackTrace();
-			}
-		}
+		//Eliminazione iscrizioni
+				query = "delete from iscritti where id_edizione = ?";
+				
+				 ps = conn.prepareStatement(query);
+				ps.setInt(1, idEdizione);
+				numeroRighe = ps.executeUpdate();
+				if(numeroRighe>0) {
+					System.out.println("iscrizione cancellata");
+				}
 		//Eliminazione edizione
 		query = "delete from calendario where id_edizione = ?";
 
