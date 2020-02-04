@@ -97,27 +97,23 @@ public class UpdateUtenteServlet extends HttpServlet {
 
 
 					try {
-							us.modificaDatiUtente(ub);
-						
-							sessione.setAttribute("id_utente", ub.getIdUtente());
-							sessione.setAttribute("nome", ub.getNome());
-							sessione.setAttribute("cognome", ub.getCognome());
-							sessione.setAttribute("password", ub.getPassword());
-							sessione.setAttribute("email", ub.getEmail());
-							sessione.setAttribute("dataNascita", ub.getDataNascita());
-							sessione.setAttribute("telefono", ub.getTelefono());
-							
-							request.setAttribute("msg", "Aggiornamento dei dati avvenuto con successo!");
-							RequestDispatcher rd =request.getRequestDispatcher("/areaPersonale.jsp"); 
-							rd.forward(request, response);
-
-					} catch (DAOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (SQLException e) {
+						us.modificaDatiUtente(ub);
+					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+
+					sessione.setAttribute("id_utente", ub.getIdUtente());
+					sessione.setAttribute("nome", ub.getNome());
+					sessione.setAttribute("cognome", ub.getCognome());
+					sessione.setAttribute("password", ub.getPassword());
+					sessione.setAttribute("email", ub.getEmail());
+					sessione.setAttribute("dataNascita", ub.getDataNascita());
+					sessione.setAttribute("telefono", ub.getTelefono());
+					
+					request.setAttribute("msg", "Aggiornamento dei dati avvenuto con successo!");
+					RequestDispatcher rd =request.getRequestDispatcher("/areaPersonale.jsp"); 
+					rd.forward(request, response);
 		}
 
 	
