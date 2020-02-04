@@ -6,6 +6,8 @@ import java.util.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -372,8 +374,45 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 	 */
 	@Override
 	public ArrayList<Edizione> select(boolean future) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+
+		ArrayList<Edizione> arrayList = new ArrayList<Edizione>();
+
+		Calendar todayCalendar = Calendar.getInstance();
+		todayCalendar.set(Calendar.HOUR_OF_DAY, 0);
+		todayCalendar.set(Calendar.MINUTE, 0);
+		todayCalendar.set(Calendar.SECOND, 0);
+
+		Date today = todayCalendar.getTime();
+
+
+
+		String minString = "01/01/1000";
+		String maxString = "31/12/9999";
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+	
+		try {
+			Date minDate = format.parse(minString);
+			Date maxDate = format.parse(maxString);
+			System.out.println("da " + minDate);
+			System.out.println("a " + maxDate);
+			
+			if(future == true) {
+				arrayList = select(today, maxDate);
+			} else {
+				arrayList = select(minDate, maxDate);
+			}
+			
+		
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return arrayList;
+		
+
+
+		
 	}
 
 	/*
