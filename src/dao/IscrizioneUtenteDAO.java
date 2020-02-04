@@ -17,5 +17,4 @@ public interface IscrizioneUtenteDAO {
 	
 	public int getNumeroIscritti(int idEdizione) throws SQLException;
 	
-	public void close();
 }

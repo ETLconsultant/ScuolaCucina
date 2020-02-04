@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import entity.Edizione;
+import entity.Feedback;
+import entity.Utente;
 import exceptions.ConnessioneException;
 import exceptions.DAOException;
 
@@ -15,6 +17,7 @@ import exceptions.DAOException;
 public class CalendarioDAOImpl implements CalendarioDAO {
 
 	private Connection conn;
+
 
 	public CalendarioDAOImpl() throws ConnessioneException{
 		conn = SingletonConnection.getInstance();
@@ -25,16 +28,29 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 	 */
 	@Override
 	public void insert(Edizione ed) throws SQLException{
-
-			PreparedStatement ps=conn.prepareStatement("insert into calendario(id_corso,dataInizio,durata,aula,docente) values (?,?,?,?,?)");
-
-			ps.setInt(1, ed.getIdCorso());
-			ps.setDate(2, new java.sql.Date(ed.getDataInizio().getTime()));
-			ps.setInt(3, ed.getDurata());
-			ps.setString(4, ed.getAula());
-			ps.setString(5, ed.getDocente());
-			ps.executeUpdate();
-
+		
+		String query = "insert into calendario (id_corso, dataInizio, durata, aula, docente) values (?,?,?,?,?)";
+	
+		PreparedStatement ps = conn.prepareStatement(query, ps.RETURN_GENERATED_KEYS);
+		
+		ps.setInt(1, ed.getIdCorso());
+		ps.setDate(2, new java.sql.Date(ed.getDataInizio().getTime()));
+		ps.setInt(3, ed.getDurata());
+		ps.setString(4, ed.getAula());
+		ps.setString(5, ed.getDocente());
+		
+		int numero = ps.executeUpdate(); 
+		
+		ResultSet rs = ps.getGeneratedKeys();
+		if(rs.next()) {
+			System.out.println("Auto Generated Primary Key " + rs.getInt(1));
+			ed.setIdEdizione(rs.getInt(1));
+		}
+		if(numero>0) {
+			System.out.println("Edizione aggiunta correttamente");
+		}else {
+			System.out.println("Errore! Edizione non aggiunta");
+		}
 	}
 
 
@@ -45,9 +61,55 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 	 * se l'edizione non è presente si solleva una eccezione
 	 */
 	@Override
-	public void delete(int idEdizione) throws SQLException{
+	public void delete(int idEdizione) throws SQLException {
 		// TODO Auto-generated method stub
-				
+
+		//Eliminazione feedback
+		String query = "delete from feedback where id_edizione = ?";
+		
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setInt(1, idEdizione);
+		int numeroRighe = ps.executeUpdate();
+		if(numeroRighe>0) {
+			System.out.println("feedback cancellati");
+		}else if(numeroRighe == 0) {
+			try {
+				throw new SQLException("feedback non presenti per questa edizione");
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
+		//Eliminazione utenti
+		query = "delete from registrati where registrati.id_utente =iscritti.id_utente and iscritti.id_edizione = calendario.id_edizione and id_edizione = ?";
+		
+		ps = conn.prepareStatement(query);
+		ps.setInt(1, idEdizione);
+		numeroRighe = ps.executeUpdate();
+		if(numeroRighe>0) {
+			System.out.println("utenti cancellati");
+		}else if(numeroRighe == 0) {
+			try {
+				throw new SQLException("utenti non presenti per questa edizione");
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
+		//Eliminazione edizione
+		query = "delete from calendario where id_edizione = ?";
+
+		ps = conn.prepareStatement(query);
+		ps.setInt(1, idEdizione);
+		numeroRighe = ps.executeUpdate();
+		if(numeroRighe>0) {
+			System.out.println("Edizione cancellata");
+		}else if(numeroRighe == 0) {
+			try {
+				throw new SQLException("L'edizione non esiste");
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+			
+		}
 	}
 
 
@@ -141,10 +203,17 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 			if (dataFine.before(new java.util.Date()))
 				ed.setTerminata(true);
 			return ed;
-		} else 
-			throw new SQLException("edizione " + idEdizione + " non presente");
-	  
-	  
+		} else {
+			try {
+				
+				throw new SQLException("edizione " + idEdizione + " non presente");
+			
+			}catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+			}
+			
+		}
 	}
 
 	/*

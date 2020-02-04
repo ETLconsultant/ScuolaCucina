@@ -1,5 +1,6 @@
 package dto;
 
+import java.util.ArrayList;
 import java.util.List;
 import entity.Edizione;
 import entity.Feedback;
@@ -8,23 +9,23 @@ import entity.Utente;
 public class EdizioneDTO {
 	
 	private Edizione edizione;
-	private List<Feedback> feedbacks;
-	private List<Utente> utentiIscritti;
+	private ArrayList<Feedback> feedbacks;
+	private ArrayList<Utente> utentiIscritti;
 	
 	public EdizioneDTO(){}
 	
-	public EdizioneDTO(Edizione edizione, List<Feedback> feedbacks, List<Utente> utenti) {
+	public EdizioneDTO(Edizione edizione, ArrayList<Feedback> feedbacks, ArrayList<Utente> utenti) {
 	
 		this.edizione = edizione;
 		this.feedbacks = feedbacks;
 		this.utentiIscritti = utenti;
 	}
 
-	public List<Utente> getUtentiIscritti() {
+	public ArrayList<Utente> getUtentiIscritti() {
 		return utentiIscritti;
 	}
 
-	public void setUtentiIscritti(List<Utente> utentiIscritti) {
+	public void setUtentiIscritti(ArrayList<Utente> utentiIscritti) {
 		this.utentiIscritti = utentiIscritti;
 	}
 
@@ -36,11 +37,11 @@ public class EdizioneDTO {
 		this.edizione = edizione;
 	}
 
-	public List<Feedback> getFeedbacks() {
+	public ArrayList<Feedback> getFeedbacks() {
 		return feedbacks;
 	}
 
-	public void setFeedbacks(List<Feedback> feedbacks) {
+	public void setFeedbacks(ArrayList<Feedback> feedbacks) {
 		this.feedbacks = feedbacks;
 	}
 

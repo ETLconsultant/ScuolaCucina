@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import entity.Categoria;
 import entity.Corso;
+import entity.Edizione;
 import entity.Feedback;
 import entity.Utente;
 import exceptions.ConnessioneException;
@@ -59,10 +60,12 @@ public class CatalogoDAOImpl implements CatalogoDAO {
 	@Override
 	public void update(Corso corso) throws SQLException {
 		
+	
+	
 		ps=conn.prepareStatement("UPDATE catalogo SET titolo=?, id_categoria=?, numeromaxpartecipanti=?, costo=?, descrizione=? where id_corso=?");
 		
 		ps.setString(1, corso.getTitolo());
-		ps.setInt(2, corso.getIdCategoria() );
+		ps.setInt(2, corso.getIdCategoria());
 		ps.setInt(3, corso.getMaxPartecipanti());
 		ps.setDouble(4, corso.getCosto());
 		ps.setString(5, corso.getDescrizione());
@@ -76,18 +79,19 @@ public class CatalogoDAOImpl implements CatalogoDAO {
 
 	/*
 	 * cancellazione di un nuovo corso nel catalogo dei corsi
-	 * questo potrà essere cancellato solo se non vi sono edizioni di quel corso o qualsiasi altro legame con gli altri dati 
+	 * questo potrà essere cancellato solo se non vi sono edizioni di quel corso o qualsiasi altro legame con gli altri dati A CALENDARIO
 	 * Se il corso non esiste si solleva una eccezione
 	 * Se non è cancellabile si solleva una eccezione
 	 */
 	@Override
-	public void delete(Corso corso) throws SQLException {
+	public void delete(int idCorso) throws SQLException {
 		
-		PreparedStatement ps = conn.prepareStatement("DELETE FROM catalogo WHERE id_corso=?");
-		ps.setInt(1, corso.getCodice());
+		
+		PreparedStatement ps = conn.prepareStatement("DELETE FROM catalogo WHERE id_corso=? and id_corso NOT IN calendario ");
+		ps.setInt(1, idCorso);
 		int n = ps.executeUpdate();
 		if(n==0)
-			throw new SQLException("corso con id " + corso.getCodice() + " non presente");
+			throw new SQLException("corso con id " + idCorso + " non presente");
 	}
 
 	/*
@@ -104,14 +108,16 @@ public class CatalogoDAOImpl implements CatalogoDAO {
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()){
 			
+			int id_corso = rs.getInt("id_corso");
 			String titolo= rs.getString("titolo");
 			int id_categoria= rs.getInt("id_categoria");
 			int numeromaxpartecipanti= rs.getInt("numeromaxpartecipanti");
 			double costo =  rs.getDouble("costo");
 			String descrizione= rs.getString("descrizione");
 			
-
+			
 			Corso corso = new Corso( titolo, id_categoria, numeromaxpartecipanti, costo, descrizione);
+			corso.setCodice(id_corso);
 			corsi.add(corso);
 		}
 
@@ -129,6 +135,7 @@ public ArrayList<Corso> selectByIdCategoria(int idCategoria) throws SQLException
 		while(rs.next()){
 			
 			
+			int id_corso = rs.getInt("id_corso");
 			String titolo= rs.getString("titolo");
 			int id_categoria= rs.getInt("id_categoria");
 			int numeromaxpartecipanti= rs.getInt("numeromaxpartecipanti");
@@ -137,6 +144,7 @@ public ArrayList<Corso> selectByIdCategoria(int idCategoria) throws SQLException
 			
 
 			Corso corso = new Corso( titolo, id_categoria, numeromaxpartecipanti, costo, descrizione);
+			corso.setCodice(id_corso);
 			corsi.add(corso);
 		}
 
@@ -174,16 +182,21 @@ public ArrayList<Corso> selectByIdCategoria(int idCategoria) throws SQLException
 	
 	public static void main(String[] args) throws Exception{
 		CatalogoDAO catdao= new CatalogoDAOImpl();
-		Corso c2 = new Corso("miocorso 2", 48, 33, 250, "in questo corso non si fa niente di niente");
-		Corso c = new Corso("miocorso", 48, 33, 250, "il questo corso non si fa nienet");
+		Corso c2 = new Corso("miocorso 33", 48, 33, 250, "nuovo corso inutile");
+		
 //		catdao.insert(c);
+//		c2.setCodice(100);
+//		catdao.delete(99);
+//		catdao.update(c2);
+//		
+//		ArrayList<Corso> listcorsi = new ArrayList<Corso>();
+//		
+//		listcorsi = catdao.select();
+//		
+//		System.out.println(listcorsi);
 		
-		catdao.delete(c);
+//		OK METODI 
 		
-//		u.setCognome("Doria");
-//		catdao.delete("aa");
-		catdao.update(c);
-//		System.out.println(catdao.select("marco81"));
 	}
 
 

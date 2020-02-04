@@ -79,6 +79,14 @@ public class Edizione {
 		this.idCorso = idCorso;
 	}
 
+	public int getIdEdizione() {
+		return idEdizione;
+	}
+
+	public void setIdEdizione(int idEdizione) {
+		this.idEdizione = idEdizione;
+	}
+
 	public boolean isTerminata() {
 		return terminata;
 	}

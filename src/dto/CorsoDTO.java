@@ -1,16 +1,17 @@
 package dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import entity.Corso;
 
 public class CorsoDTO {
 	private Corso corso;
-	private List<EdizioneDTO> listaEdizioni;
+	private ArrayList<EdizioneDTO> listaEdizioni;
 	
 	public CorsoDTO(){}
 	
-	public CorsoDTO(Corso corso, List<EdizioneDTO> listaEdizioni) {
+	public CorsoDTO(Corso corso, ArrayList<EdizioneDTO> listaEdizioni) {
 		this.corso = corso;
 		this.listaEdizioni = listaEdizioni;
 	}
@@ -23,11 +24,11 @@ public class CorsoDTO {
 		this.corso = corso;
 	}
 
-	public List<EdizioneDTO> getListaEdizioni() {
+	public ArrayList<EdizioneDTO> getListaEdizioni() {
 		return listaEdizioni;
 	}
 
-	public void setListaEdizioni(List<EdizioneDTO> listaEdizioni) {
+	public void setListaEdizioni(ArrayList<EdizioneDTO> listaEdizioni) {
 		this.listaEdizioni = listaEdizioni;
 	}
 
