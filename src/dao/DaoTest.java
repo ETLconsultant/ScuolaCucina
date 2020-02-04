@@ -11,7 +11,7 @@ public class DaoTest {
 		CalendarioDAOImpl cal = new CalendarioDAOImpl();
 		
 		
-		cal.delete(92);
+		cal.delete(93);
 	}
 
 }

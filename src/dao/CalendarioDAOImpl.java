@@ -17,7 +17,7 @@ import exceptions.DAOException;
 public class CalendarioDAOImpl implements CalendarioDAO {
 
 	private Connection conn;
-
+	private PreparedStatement ps;
 
 	public CalendarioDAOImpl() throws ConnessioneException{
 		conn = SingletonConnection.getInstance();
@@ -31,7 +31,7 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 		
 		String query = "insert into calendario (id_corso, dataInizio, durata, aula, docente) values (?,?,?,?,?)";
 	
-		PreparedStatement ps = conn.prepareStatement(query, ps.RETURN_GENERATED_KEYS);
+		ps = conn.prepareStatement(query, ps.RETURN_GENERATED_KEYS);
 		
 		ps.setInt(1, ed.getIdCorso());
 		ps.setDate(2, new java.sql.Date(ed.getDataInizio().getTime()));
@@ -80,8 +80,9 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 			}
 		}
 		//Eliminazione utenti
-		query = "delete from registrati where registrati.id_utente =iscritti.id_utente and iscritti.id_edizione = calendario.id_edizione and id_edizione = ?";
+//		query = "delete from registrati where registrati.id_utente =iscritti.id_utente and iscritti.id_edizione = calendario.id_edizione and id_edizione = ?";
 		
+		query = "delete registrati from registrati where (select registrati.id_utente from registrati inner join iscritti on iscritti.id_utente = registrati.id_utente and iscritti.id_edizione = ?)";
 		ps = conn.prepareStatement(query);
 		ps.setInt(1, idEdizione);
 		numeroRighe = ps.executeUpdate();
