@@ -43,12 +43,12 @@ public class Edizione {
 	public int getIdCorso(){
 		return idCorso;
 	}
-	public int getCodice() {
-		return idEdizione;
-	}
-	public void setCodice(int idEdizione) {
-		this.idEdizione = idEdizione;
-	}
+//	public int getCodice() {
+//		return idEdizione;
+//	}
+//	public void setCodice(int idEdizione) {
+//		this.idEdizione = idEdizione;
+//	}
 	
 	public Date getDataInizio() {
 		return dataInizio;
