@@ -11,6 +11,8 @@ import dao.CategoriaDAO;
 import dao.CategoriaDAOImpl;
 import dao.FeedBackDAOImpl;
 import dao.FeedbackDAO;
+import dao.IscrizioneUtenteDAO;
+import dao.IscrizioneUtenteDAOImpl;
 import dto.CorsoDTO;
 import dto.EdizioneDTO;
 import entity.Categoria;
@@ -27,11 +29,12 @@ public class CorsoServiceImpl implements CorsoService {
 	private CatalogoDAO daoC;
 	private CategoriaDAO daoCat;
 	private CalendarioDAO daoCal;
-	
+
 	private FeedbackDAO daoF;
 	private EdizioneDTO dtoE;
+	private IscrizioneUtenteDAO daoU;
 	//... dichiarazione di altri DAO
-	
+
 	//costruire qui tutti i dao di cui si ha bisogno
 	public  CorsoServiceImpl() throws ConnessioneException{
 		daoC = new CatalogoDAOImpl();
@@ -39,9 +42,9 @@ public class CorsoServiceImpl implements CorsoService {
 		daoCal = new CalendarioDAOImpl();
 		daoF=new FeedBackDAOImpl();
 		dtoE = new EdizioneDTO();
-		//... costruzione dei altri dao
+		daoU = new IscrizioneUtenteDAOImpl();
 	}
-	
+
 	/*
 	 * il metodo mostra tutti i corsi offerti dalla scuola 
 	 * se il metodi del/dei DAO invocati sollevano una eccezione, il metodo deve tornare una DAOException con all'interno l'exception originale
@@ -52,7 +55,7 @@ public class CorsoServiceImpl implements CorsoService {
 			return daoC.select();
 		} catch (SQLException e) {
 			throw new DAOException("errore nel recuperare o leggere i dati", e);
-			
+
 		}
 	}
 
@@ -66,29 +69,29 @@ public class CorsoServiceImpl implements CorsoService {
 			return daoC.selectByIdCategoria(idCategoria);
 		} catch (SQLException e) {
 			throw new DAOException("errore nel recuperare o leggere i dati", e);
-			
+
 		}
-		
-		 
+
+
 	}
-	
+
 	/*
 	 * lettura di tutte le categorie
 	 * se il metodi del/dei DAO invocati sollevano una eccezione, il metodo deve tornare una DAOException con all'interno l'exception originale 
 	 */
 	@Override
 	public ArrayList<Categoria> visualizzaCategorie() throws DAOException {
-		
+
 		try {
 			return daoCat.select();
 		} catch (SQLException e) {
 			throw new DAOException("errore nel recuperare o leggere i dati", e);
 		}
-		
-	
-		
+
+
+
 	}
-	
+
 	/*
 	 * il metodo (invocabile solo da un amministratore) crea una nuova categoria
 	 * se il metodi del/dei DAO invocati sollevano una eccezione, il metodo deve tornare una DAOException con all'interno l'exception originale
@@ -102,7 +105,7 @@ public class CorsoServiceImpl implements CorsoService {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 
 	}
@@ -115,21 +118,40 @@ public class CorsoServiceImpl implements CorsoService {
 	 */
 	@Override
 	public CorsoDTO visualizzaSchedaCorso(int idCorso) throws DAOException, SQLException { 
-		ArrayList<Edizione> lista = new ArrayList<Edizione>();
-		lista= daoCal.select();
-		for(Edizione ediz : lista ) {
-			if(ediz.getIdCorso()==idCorso) {
-				Corso corso = new Corso();
-				corso = daoC.select(idCorso);
-				
+		ArrayList<EdizioneDTO> listaEdizioni = new ArrayList<EdizioneDTO>();
+
+
+		try {
+			for(Edizione ediz : daoCal.select() ) {
+				if(ediz.getIdCorso()==idCorso) {
+					ArrayList<Feedback> feedbacks = 
+							daoF.selectPerEdizione(ediz.getIdEdizione());
+
+					ArrayList<Utente> utentiIscritti = daoU.selectUtentiPerEdizione(ediz.getIdEdizione());
+
+					EdizioneDTO edizioneDTO = new EdizioneDTO();
+
+					edizioneDTO.setEdizione(ediz);
+					edizioneDTO.setFeedbacks(feedbacks);
+					edizioneDTO.setUtentiIscritti(utentiIscritti);
+
+					listaEdizioni.add(edizioneDTO);
+
+				}
 			}
+
+
+			CorsoDTO corsoDTO = new CorsoDTO();
+
+			corsoDTO.setListaEdizioni(listaEdizioni);
+			corsoDTO.setCorso(daoC.select(idCorso));
+
+
+			return corsoDTO;
+
+		} catch(SQLException e) {
+			throw new DAOException("errore nel recuperare o leggere i dati", e);
 		}
-	
-		
-		CorsoDTO dtoC = new CorsoDTO();
-		
-		
-		return dtoC;
 	}
 
 	/*
@@ -198,7 +220,7 @@ public class CorsoServiceImpl implements CorsoService {
 	 */
 	@Override
 	public Corso visualizzaCorso(int codiceCorso) throws DAOException {
-		
+
 		try {
 			return daoC.select(codiceCorso);
 		} catch (SQLException e) {
