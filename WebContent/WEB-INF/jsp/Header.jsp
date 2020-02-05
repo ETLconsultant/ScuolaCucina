@@ -54,10 +54,10 @@
 
 				<ul class="nav navbar-nav navbar-right">
 					<%
-						String username = (String) session.getAttribute("username");
+						String username = (String) session.getAttribute("idUtente");
 					%>
 					<%
-						if (session.getAttribute("utente") == null) {
+						if (session.getAttribute("idUtente") == null) {
 					%>
 					<li><a href="login.jsp"><span
 							class="glyphicon glyphicon-log-in"></span> Login</a></li>
