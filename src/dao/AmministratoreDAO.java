@@ -14,5 +14,7 @@ public interface AmministratoreDAO {
 	
 	public ArrayList<Utente> select() throws SQLException;
 	
-	public Utente select(String idAmministratore) throws SQLException;
+	public Utente select(String idAmministratore, String password) throws SQLException;
+	
+	void close();
 }

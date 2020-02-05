@@ -14,6 +14,8 @@ import exceptions.ConnessioneException;
 public class AmministratoreDAOImpl implements AmministratoreDAO {
 
 	private Connection conn;
+	private PreparedStatement prepared;
+	private ResultSet rs;
 
 	public AmministratoreDAOImpl() throws ConnessioneException{
 		conn = SingletonConnection.getInstance();
@@ -112,28 +114,52 @@ public class AmministratoreDAOImpl implements AmministratoreDAO {
 	 * Se non presente si solleva una eccezione
 	 */
 	@Override
-	public Utente select(String idAmministratore) throws SQLException {
-
-		PreparedStatement ps=conn.prepareStatement("SELECT * FROM amministratori where id_amministratore =?");
-
-		ps.setString(1, idAmministratore);
-
-		ResultSet rs = ps.executeQuery();
-		Utente amministratore =null;
-		if(rs.next()){
-			String idUtente = rs.getString("id_amministratore");
-			String password= rs.getString("password");
-			String nome= rs.getString("nome");
-			String cognome= rs.getString("cognome");
-			Date dataNascita = rs.getDate("dataNascita");
-			String email= rs.getString("email");
-			String telefono= rs.getString("telefono");
-
-			amministratore = new Utente(idUtente,password,nome,cognome,dataNascita,email,telefono, true);
+	public Utente select(String idAmministratore, String password) throws SQLException {
+		Utente amministratore = new Utente();
+		String query = "select * from amministratori where id_amministratore=? and password=? ";
+		
+			prepared=conn.prepareStatement(query);
+			prepared.setString(1, idAmministratore);
+			prepared.setString(2, password);
+			rs=prepared.executeQuery();
+			
+			if(rs.next()){
+			
+			amministratore.setIdUtente(rs.getString("id_amministratore"));
+			amministratore.setPassword(rs.getString("password"));
+			amministratore.setNome(rs.getString("nome"));
+			amministratore.setCognome(rs.getString("cognome"));
+			amministratore.setDataNascita(rs.getDate("dataNascita"));
+			amministratore.setEmail(rs.getString("email"));
+			amministratore.setTelefono(rs.getString("telefono"));
+			close();
 			return amministratore;
-		}
-		else
-			throw new SQLException("amministratore: " + idAmministratore + " non presente");
+			}
+			
+			else
+				close();
+				throw new SQLException("amministratore: " + idAmministratore + " non presente");
+
+	}
+	
+
+
+
+	@Override
+	public void close() {
+		if (prepared!=null)
+			try {
+				prepared.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		if(rs!=null)
+			try {
+				rs.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
 	}
 	
 	public static void main(String[] args) throws Exception{
@@ -143,6 +169,6 @@ public class AmministratoreDAOImpl implements AmministratoreDAO {
 //		u.setCognome("Doria");
 //		dao.delete("aa");
 //		dao.update(u);
-		System.out.println(dao.select("marco81"));
+//		System.out.println(dao.select("marco81"));
 	}
 }

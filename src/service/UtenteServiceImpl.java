@@ -3,6 +3,7 @@ package service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import dao.AmministratoreDAOImpl;
 import dao.CatalogoDAO;
 import dao.CatalogoDAOImpl;
 import dao.FeedBackDAOImpl;
@@ -17,6 +18,7 @@ public class UtenteServiceImpl implements UtenteService {
 
 	//dichiarare qui tutti i dao di cui si ha bisogno
 	private RegistrazioneUtenteDAOImpl daoU;
+	private AmministratoreDAOImpl daoA;
 	private FeedBackDAOImpl daoF;
 	//... dichiarazione di altri eventuali DAO
 	
@@ -32,6 +34,12 @@ public class UtenteServiceImpl implements UtenteService {
 		} catch (ConnessioneException e) {
 			e.printStackTrace();
 		}
+		try {
+			daoA = new AmministratoreDAOImpl();
+		} catch (ConnessioneException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//... costruzione dei altri eventuali dao
 	}
 	
@@ -42,7 +50,12 @@ public class UtenteServiceImpl implements UtenteService {
 	@Override
 	public void registrazioneUtente(Utente u) throws DAOException, SQLException {
 		try {
-			daoU.insert(u);
+			if(u.isAdmin()) {
+				daoA.insert(u);
+			}else {
+				daoU.insert(u);
+			}
+			
 		}catch(DAOException e) {
 			throw new DAOException("Utente già presente, impossibile inserire l'utente", e);
 		}
@@ -58,11 +71,16 @@ public class UtenteServiceImpl implements UtenteService {
 	public Utente checkCredenziali(String idUtente, String psw) throws DAOException, SQLException {
 		
 		try {
-			return daoU.select(idUtente, psw);
+			Utente u = new Utente();
+			if(u.isAdmin()) {
+				String idAmministratore = idUtente;
+				return daoA.select(idAmministratore, psw);
+			}else {
+				return daoU.select(idUtente, psw);
+			}
+			
 		} catch (DAOException e) {
-			throw new DAOException("Utente non presente", e);
-			
-			
+			throw new DAOException("Utente/Amministratore non presente", e);
 		}
 	}
 
@@ -76,9 +94,16 @@ public class UtenteServiceImpl implements UtenteService {
 	@Override
 	public void cancellaRegistrazioneUtente(String idUtente) throws DAOException, SQLException {
 		try {
-			daoU.delete(idUtente);
+			Utente u = new Utente();
+			if(u.isAdmin()) {
+				String idAmministratore = idUtente;
+				daoA.delete(idAmministratore);
+			}else {
+				daoU.delete(idUtente);
+			}
+			
 		}catch (DAOException e) {
-			throw new DAOException("Utente non cancellabile", e);
+			throw new DAOException("Utente/Amministratore non cancellabile", e);
 			
 			
 		}
@@ -94,9 +119,15 @@ public class UtenteServiceImpl implements UtenteService {
 	@Override
 	public void modificaDatiUtente(Utente u) throws DAOException, SQLException {
 		try {
-			daoU.update(u);
+			if(u.isAdmin()) {
+				Utente amministratore=u;
+				daoA.update(amministratore);
+			}else {
+				daoU.update(u);
+			}
+			
 		}catch (DAOException e) {
-			throw new DAOException("Utente non presente", e);
+			throw new DAOException("Utente/Amministratore non presente", e);
 			
 			
 		}

@@ -25,6 +25,7 @@ public class CancellazioneUtenteServlet extends HttpServlet {
 	Utente ub = new Utente();
 	UtenteServiceImpl us = new UtenteServiceImpl();
 	
+	
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -52,21 +53,38 @@ public class CancellazioneUtenteServlet extends HttpServlet {
 		HttpSession sessione = request.getSession();
 		
 		String idUtente = (String) sessione.getAttribute("id_utente");
-	
-		ub.setIdUtente(idUtente);
-		
+		String idAdmin = (String) sessione.getAttribute("id_amministratore");
 	
 		
-		try {
-			us.cancellaRegistrazioneUtente(idUtente);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		
+		if(ub.isAdmin()) {
+			ub.setIdUtente(idAdmin);
+			try {
+				us.cancellaRegistrazioneUtente(idAdmin);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			request.setAttribute("msg1", "Cancellazione avvenuta con successo. Torna presto a trovarci!");
+			sessione.invalidate();
+			RequestDispatcher rd =request.getRequestDispatcher("/Home.jsp"); 
+			rd.forward(request, response); 
+		}else {
+			ub.setIdUtente(idUtente);
+			try {
+				us.cancellaRegistrazioneUtente(idUtente);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			request.setAttribute("msg1", "Cancellazione avvenuta con successo. Torna presto a trovarci!");
+			sessione.invalidate();
+			RequestDispatcher rd =request.getRequestDispatcher("/Home.jsp"); 
+			rd.forward(request, response); 
+			
 		}
-		request.setAttribute("msg1", "Cancellazione avvenuta con successo. Torna presto a trovarci!");
-		sessione.invalidate();
-		RequestDispatcher rd =request.getRequestDispatcher("/Home.jsp"); 
-		rd.forward(request, response); 
+	
+		
+		
 
 		
 	}
