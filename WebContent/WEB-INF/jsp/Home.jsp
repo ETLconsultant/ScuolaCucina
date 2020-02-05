@@ -25,18 +25,18 @@
 		<!-- Wrapper for slides -->
 		<div class="carousel-inner" role="listbox">
 			<div class="item active">
-				<img src="img/pasta.jpg" alt="Image">
+				<img src="img/food.jpg" alt="Image" style="width:100%;">
 				<div class="carousel-caption">
 				</div>
 			</div>
 
 			<div class="item">
-				<img src="img/ape.jpg" alt="Image">
+				<img src="img/f1.jpg" alt="Image" style="width:100%;">
 				<div class="carousel-caption">
 				</div>
 			</div>
 			<div class="item">
-				<img src="img/sweet.jpg" alt="Image">
+				<img src="img/sweet.jpg" alt="Image" style="width:100%;">
 				<div class="carousel-caption">
 				</div>
 			</div>
