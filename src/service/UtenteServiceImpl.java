@@ -25,13 +25,11 @@ public class UtenteServiceImpl implements UtenteService {
 		try {
 			daoU = new RegistrazioneUtenteDAOImpl();
 		} catch (ConnessioneException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			daoF = new FeedBackDAOImpl();
 		} catch (ConnessioneException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//... costruzione dei altri eventuali dao
@@ -48,10 +46,6 @@ public class UtenteServiceImpl implements UtenteService {
 		}catch(DAOException e) {
 			throw new DAOException("Utente già presente, impossibile inserire l'utente", e);
 		}
-		    
-			
-			
-		
 		
 	}
 
@@ -117,8 +111,14 @@ public class UtenteServiceImpl implements UtenteService {
 	 * se non vi sono utenti il metodo ritorna una lista vuota
 	 */
 	@Override
-	public ArrayList<Utente> visualizzaUtentiRegistrati() throws DAOException, SQLException {
-		return daoU.select();
+	public ArrayList<Utente> visualizzaUtentiRegistrati() throws DAOException {
+		try {
+			return daoU.select();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			throw new DAOException("errore nel recuperare o leggere i dati", e);
+		}
 		 
 	}
 
@@ -128,8 +128,14 @@ public class UtenteServiceImpl implements UtenteService {
 	 * se l'utente non può insierire un feedback si solleva una eccezione
 	 */
 	@Override
-	public void inserisciFeedback(Feedback f) throws DAOException, SQLException {
-		daoF.insert(f);
+	public void inserisciFeedback(Feedback f) throws DAOException {
+		try {
+			daoF.insert(f);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
 		
 	}
 
@@ -139,8 +145,13 @@ public class UtenteServiceImpl implements UtenteService {
 	 * se l'utente non può modificare un feedback si solleva una eccezione
 	 */
 	@Override
-	public void modificaFeedback(Feedback feedback) throws DAOException, SQLException {
-		daoF.update(feedback);
+	public void modificaFeedback(Feedback feedback) throws DAOException {
+		try {
+			daoF.update(feedback);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -150,8 +161,13 @@ public class UtenteServiceImpl implements UtenteService {
 	 * se l'utente non può cancellare un feedback si solleva una eccezione
 	 */
 	@Override
-	public void cancellaFeedback(int idFeedback) throws DAOException, SQLException {
-		daoF.delete(idFeedback);
+	public void cancellaFeedback(int idFeedback) throws DAOException {
+		try {
+			daoF.delete(idFeedback);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
