@@ -7,6 +7,8 @@ import java.util.Date;
 
 import dao.CalendarioDAO;
 import dao.CalendarioDAOImpl;
+import dao.FeedBackDAOImpl;
+import dao.FeedbackDAO;
 import dao.IscrizioneUtenteDAO;
 import dao.IscrizioneUtenteDAOImpl;
 import dto.CorsoDTO;
@@ -23,17 +25,22 @@ public class EdizioneServiceImpl implements EdizioneService{
 	//dichiarare qui tutti i dao di cui si ha bisogno
 	private CalendarioDAO daoC;
 	private IscrizioneUtenteDAO daoI;
-	
+	private FeedbackDAO daoF;
+	private IscrizioneUtenteDAO daoU;
+
 	//... dichiarazione di altri DAO
-	
+
 	//costruire qui tutti i dao di cui si ha bisogno
 	public  EdizioneServiceImpl() throws ConnessioneException{
 		daoC = new CalendarioDAOImpl();
 		daoI = new IscrizioneUtenteDAOImpl();
-		
+		daoF=new FeedBackDAOImpl();
+		daoU = new IscrizioneUtenteDAOImpl();
+
+
 		//... costruzione di altri DAO
 	}
-	
+
 	/*
 	 * inserisce una nuova edizione 
 	 */
@@ -45,10 +52,10 @@ public class EdizioneServiceImpl implements EdizioneService{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 	}
 
-	
+
 	/*
 	 * modifica tutti i dati di una edizione esistente 
 	 */
@@ -60,7 +67,7 @@ public class EdizioneServiceImpl implements EdizioneService{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 	}
 
 	/*
@@ -76,7 +83,7 @@ public class EdizioneServiceImpl implements EdizioneService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	/*
@@ -91,7 +98,7 @@ public class EdizioneServiceImpl implements EdizioneService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	/*
@@ -105,7 +112,7 @@ public class EdizioneServiceImpl implements EdizioneService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	/*
@@ -114,87 +121,108 @@ public class EdizioneServiceImpl implements EdizioneService{
 	 */
 	@Override
 	public ArrayList<EdizioneDTO> visualizzaEdizioniPerMese(int mese) throws DAOException {
-		ArrayList<Edizione> lista = new ArrayList<Edizione>();
-		EdizioneDTO edizDTO = new EdizioneDTO();
+
 		ArrayList<EdizioneDTO> listaDTO = new ArrayList<EdizioneDTO>();
-		listaDTO.add(edizDTO);
+
+
 		mese = mese-1;
 		Calendar cal = Calendar.getInstance(); 
-		
+
 		cal.set(Calendar.MONTH, mese); 
 		cal.set(Calendar.DAY_OF_MONTH, 1);
 		Date da = cal.getTime();
+		
 		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DATE));
 		Date a = cal.getTime();
-		
+
 		try {
-			lista = daoC.select(da, a);
-		} catch (SQLException e) {
-			e.printStackTrace();
+			for(Edizione ediz : daoC.select(da, a) ) {
+
+				ArrayList<Feedback> feedbacks = 
+						daoF.selectPerEdizione(ediz.getIdEdizione());
+
+				ArrayList<Utente> utentiIscritti = daoU.selectUtentiPerEdizione(ediz.getIdEdizione());
+
+				EdizioneDTO edizioneDTO = new EdizioneDTO();
+
+				edizioneDTO.setEdizione(ediz);
+				edizioneDTO.setFeedbacks(feedbacks);
+				edizioneDTO.setUtentiIscritti(utentiIscritti);
+
+				listaDTO.add(edizioneDTO);
+
+			}
+			
+			return listaDTO;
+		
 		}
-		
-		return listaDTO;
-
-	}
-
-	/*
-	 * il metodo ritorna tutte le edizioni con relativi utenti e feedback dei corsi in calendario nel mese indicato dell'anno corrente
-	 * se il metodi del/dei DAO invocati sollevano una eccezione, il metodo deve tornare una DAOException con all'interno l'exception originale
-	 */
-	@Override
-	public ArrayList<EdizioneDTO> visualizzaEdizioniPerAnno(int anno) throws DAOException {
-		anno = anno-1;
-		Calendar cal = Calendar.getInstance(); 
-		
-		cal.set(Calendar.YEAR, anno); 
-		cal.set(Calendar.MONTH, 0);
-		Date da = cal.getTime();
-		cal.set(Calendar.MONTH, 12);
-		Date a = cal.getTime();
-		try {
-			daoC.select(da, a);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		catch (SQLException e) {
+			throw new DAOException("errore nel recuperare o leggere i dati", e);
 		}
-		EdizioneDTO edizDTO = new EdizioneDTO();
-		ArrayList<EdizioneDTO> listaDTO = new ArrayList<EdizioneDTO>();
-		listaDTO.add(edizDTO);
+
+
 		
-		return listaDTO;
-	}
-	
-	/*
-	 * il metodo ritorna tutte le edizioni con relativi utenti e feedback del corso specificato presenti in calendario nell'anno corrente a partire dalla data odierna
-	 * se il metodi del/dei DAO invocati sollevano una eccezione, il metodo deve tornare una DAOException con all'interno l'exception originale
-	 */
-	@Override
-	public ArrayList<EdizioneDTO> visualizzaEdizioniPerCorso(int idCorso) throws DAOException {
-		
-		return null;
-		
-		
-	
+
 	}
 
-	/*
-	 * il metodo ritorna tutte le edizioni dei corsi e relativi utenti e feedbacks in calendario dell'anno corrente a partire dalla data odierna
-	 * se il metodi del/dei DAO invocati sollevano una eccezione, il metodo deve tornare una DAOException con all'interno l'exception originale
-	 */
-	@Override
-	public EdizioneDTO visualizzaEdizione(int idEdizione) throws DAOException {
-		try {
-			daoC.selectEdizione(idEdizione);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		/*
+		 * il metodo ritorna tutte le edizioni con relativi utenti e feedback dei corsi in calendario nel mese indicato dell'anno corrente
+		 * se il metodi del/dei DAO invocati sollevano una eccezione, il metodo deve tornare una DAOException con all'interno l'exception originale
+		 */
+		@Override
+		public ArrayList<EdizioneDTO> visualizzaEdizioniPerAnno(int anno) throws DAOException {
+			anno = anno-1;
+			Calendar cal = Calendar.getInstance(); 
+
+			cal.set(Calendar.YEAR, anno); 
+			cal.set(Calendar.MONTH, 0);
+			Date da = cal.getTime();
+			cal.set(Calendar.MONTH, 12);
+			Date a = cal.getTime();
+			try {
+				daoC.select(da, a);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			EdizioneDTO edizDTO = new EdizioneDTO();
+			ArrayList<EdizioneDTO> listaDTO = new ArrayList<EdizioneDTO>();
+			listaDTO.add(edizDTO);
+
+			return listaDTO;
 		}
-		Edizione edizione = new Edizione();
-		ArrayList<Feedback> feedbacks = new ArrayList<Feedback>() ;
-		ArrayList<Utente> utentiIscritti  = new ArrayList<Utente>();
-		EdizioneDTO edizDTO = new EdizioneDTO(edizione, feedbacks, utentiIscritti);
-		
-		
-    	return edizDTO;
+
+		/*
+		 * il metodo ritorna tutte le edizioni con relativi utenti e feedback del corso specificato presenti in calendario nell'anno corrente a partire dalla data odierna
+		 * se il metodi del/dei DAO invocati sollevano una eccezione, il metodo deve tornare una DAOException con all'interno l'exception originale
+		 */
+		@Override
+		public ArrayList<EdizioneDTO> visualizzaEdizioniPerCorso(int idCorso) throws DAOException {
+
+			return null;
+
+
+
+		}
+
+		/*
+		 * il metodo ritorna tutte le edizioni dei corsi e relativi utenti e feedbacks in calendario dell'anno corrente a partire dalla data odierna
+		 * se il metodi del/dei DAO invocati sollevano una eccezione, il metodo deve tornare una DAOException con all'interno l'exception originale
+		 */
+		@Override
+		public EdizioneDTO visualizzaEdizione(int idEdizione) throws DAOException {
+			try {
+				daoC.selectEdizione(idEdizione);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			Edizione edizione = new Edizione();
+			ArrayList<Feedback> feedbacks = new ArrayList<Feedback>() ;
+			ArrayList<Utente> utentiIscritti  = new ArrayList<Utente>();
+			EdizioneDTO edizDTO = new EdizioneDTO(edizione, feedbacks, utentiIscritti);
+
+
+			return edizDTO;
+		}
+
+
 	}
-
-
-}
