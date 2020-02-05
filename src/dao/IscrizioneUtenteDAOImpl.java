@@ -65,8 +65,11 @@ public class IscrizioneUtenteDAOImpl implements IscrizioneUtenteDAO {
 		ps.setInt(1, idEdizione);
 		ps.setString(2, idUtente);
 		int n = ps.executeUpdate();
-		if(n==0)
+		if(n==0) {
 			throw new SQLException("iscrizione (id edizione '" + idEdizione + "' e id utente '"+ idUtente+"') non presente");
+		}else {
+			System.out.println("Iscrizione eliminata correttamente");
+		}
 	}
 		/*
 	 * lettura di tutte le edizioni a cui è iscritto un utente

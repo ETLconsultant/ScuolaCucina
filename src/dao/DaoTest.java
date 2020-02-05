@@ -49,7 +49,8 @@ public class DaoTest {
 		
 		IscrizioneUtenteDAOImpl ut = new IscrizioneUtenteDAOImpl();
 		
-		ut.iscriviUtente(96, "francesco");
+//		ut.iscriviUtente(96, "francesco");
+		ut.cancellaIscrizioneUtente(96, "fausto");
 		
 	}
 
