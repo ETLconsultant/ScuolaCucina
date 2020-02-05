@@ -38,7 +38,13 @@ public class RegistrazioneUtenteDAOImpl implements RegistrazioneUtenteDAO {
 			prepared.setDate(5, new java.sql.Date(u.getDataNascita().getTime()));
 			prepared.setString(6, u.getEmail());
 			prepared.setString(7, u.getTelefono());
-			prepared.executeUpdate();
+			int numero = prepared.executeUpdate();
+			if (numero>0)  {
+				System.out.println("utente aggiunto");
+			}else {
+				u=select(u.getIdUtente(), u.getPassword());
+				throw new SQLException("utente: " + u.getIdUtente() + " già inserito");
+			}
 			
 			
 			close();
@@ -84,7 +90,7 @@ public class RegistrazioneUtenteDAOImpl implements RegistrazioneUtenteDAO {
 			prepared.setString(1, idUtente);
 			int n =prepared.executeUpdate();
 			if(n==0)
-			throw new SQLException("utente: " + idUtente + " non presente");
+			throw new SQLException("utente: " + idUtente + " non cancellabile");
 			
 			close();
 		
