@@ -26,19 +26,20 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	 * 
 	 */
 	@Override
-	public void insert(Categoria c) throws SQLException {
+	public void insert(String descrizione) throws SQLException {
 		
 		
 		String query = "insert into categoria(descrizione) values (?)";
 
 		prepared= conn.prepareStatement(query, prepared.RETURN_GENERATED_KEYS);
-		prepared.setString(1, c.getDescrizione());
+		prepared.setString(1, descrizione);
 		
 		int numero = prepared.executeUpdate();
 		resultset = prepared.getGeneratedKeys();
 		if(numero>0) {
 			resultset.next();
 			System.out.println("Auto Generated Primary Key " + resultset.getInt(1));
+			Categoria c = new Categoria();
 			c.setIdCategoria(resultset.getInt(1));
 			System.out.println("Categoria inserita correttamente");
 		}
