@@ -11,7 +11,7 @@
 	</servlet>
 
 
-	<servlet-mapping>
+	<servlet-mapping> 
 		<servlet-name>registraUtente</servlet-name>
 		<url-pattern>/registraUtente.jsp</url-pattern>
 	</servlet-mapping>
