@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="css/form.css">
 </head>
 <body>
-
+ 
 	<p>
 		Ciao
 		<%=username1%>, da qui puoi modificare i tuoi dati o cancellare il tuo

@@ -10,7 +10,7 @@
 <title>Aggiorna dati</title>
 </head>
 <body>
-<div align="center">
+<div align="center"> 
 
 <p Id="mex"></p>
 <form name="myForm" action="Update" method="post"  onsubmit="fieldValidation()">

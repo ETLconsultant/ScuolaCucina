@@ -5,7 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Login</title>
-<script type="text/javascript" src="js/gestioneForm.js"></script>
+<script type="text/javascript" src="js/gestioneForm.js"></script> 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>

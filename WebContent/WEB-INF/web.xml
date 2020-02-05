@@ -20,7 +20,7 @@
 		<servlet-name>index</servlet-name>
 		<jsp-file>/WEB-INF/jsp/index.jsp</jsp-file>
 	</servlet>
-
+ 
 
 	<servlet-mapping>
 		<servlet-name>index</servlet-name>
