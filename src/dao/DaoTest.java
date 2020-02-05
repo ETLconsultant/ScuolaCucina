@@ -50,9 +50,12 @@ public class DaoTest {
 		IscrizioneUtenteDAOImpl ut = new IscrizioneUtenteDAOImpl();
 		
 //		ut.iscriviUtente(96, "francesco");
-		ut.cancellaIscrizioneUtente(96, "fausto");
-		
-		
+//		ut.cancellaIscrizioneUtente(96, "francesco");
+//		ut.iscriviUtente(96, "francesco");
+//		ut.iscriviUtente(97, "fausto");
+//		System.out.println(ut.selectIscrizioniUtente("francesco"));
+//		System.out.println(ut.selectUtentiPerEdizione(90));
+		System.out.println(ut.getNumeroIscritti(97));
 	}
 
 }

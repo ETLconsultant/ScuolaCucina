@@ -28,9 +28,10 @@ public class IscrizioneUtenteDAOImpl implements IscrizioneUtenteDAO {
 	public void iscriviUtente(int idEdizione, String idUtente) throws SQLException {
 		
 		
-		String query = "select id_utente from iscritti where id_utente = ?";
+		String query = "select id_utente, id_edizione from iscritti where id_utente = ? and id_edizione = ?";
 		PreparedStatement ps = conn.prepareStatement(query);
 		ps.setString(1, idUtente);
+		ps.setInt(2, idEdizione);
 		ResultSet res = ps.executeQuery();
 		
 		if(res.next()) {
@@ -61,7 +62,7 @@ public class IscrizioneUtenteDAOImpl implements IscrizioneUtenteDAO {
 	@Override
 	public void cancellaIscrizioneUtente(int idEdizione, String idUtente) throws SQLException {
 
-		PreparedStatement ps = conn.prepareStatement("DELETE FROM iscritti WHERE id_edizione=? and id_utente=?");
+		PreparedStatement ps = conn.prepareStatement("delete from iscritti where id_edizione=? and id_utente=?");
 		ps.setInt(1, idEdizione);
 		ps.setString(2, idUtente);
 		int n = ps.executeUpdate();
@@ -81,9 +82,9 @@ public class IscrizioneUtenteDAOImpl implements IscrizioneUtenteDAO {
 	public ArrayList<Edizione> selectIscrizioniUtente(String idUtente) throws SQLException {
 
 		ArrayList<Edizione> edizioni = new ArrayList<Edizione>(); 
-
-		PreparedStatement ps=conn.prepareStatement("SELECT * FROM calendario, iscritti WHERE iscritti.id_edizione=calendario.id_edizione AND id_utente=?");
 		
+		String query = "select calendario.* from calendario, iscritti where iscritti.id_edizione=calendario.id_edizione and id_utente=?";
+		PreparedStatement ps=conn.prepareStatement(query);
 		ps.setString(1, idUtente);
 		
 		ResultSet rs = ps.executeQuery();
@@ -96,7 +97,6 @@ public class IscrizioneUtenteDAOImpl implements IscrizioneUtenteDAO {
 			String aula=rs.getString("aula");
 			String docente=rs.getString("docente");
 			
-	
 			Edizione edizione = new Edizione(idEdizione, idCorso, dataInizio, durata, aula, docente);
 			edizioni.add(edizione);
 		}
@@ -110,18 +110,10 @@ public class IscrizioneUtenteDAOImpl implements IscrizioneUtenteDAO {
 	 */
 	@Override
 	public ArrayList<Utente> selectUtentiPerEdizione(int idEdizione) throws SQLException {
-		
-//		CalendarioDAOImpl ed = new CalendarioDAOImpl();
-		ArrayList<Edizione> edizioni = new ArrayList<Edizione>(); 
-		
-	
-		
-//		if((ed.selectEdizione(idEdizione) != null) || (getNumeroIscritti(idEdizione) == 0)) {  
-			
 
 		ArrayList<Utente> utenti = new ArrayList<Utente>(); 
 
-		PreparedStatement ps=conn.prepareStatement("SELECT * FROM registrati, iscritti WHERE iscritti.id_utente=registrati.id_utente AND iscritti.id_edizione=?");
+		PreparedStatement ps=conn.prepareStatement("select registrati.* from registrati, iscritti where iscritti.id_utente=registrati.id_utente and id_edizione=?");
 
 		ps.setInt(1, idEdizione);
 		
@@ -134,7 +126,6 @@ public class IscrizioneUtenteDAOImpl implements IscrizioneUtenteDAO {
 			Date dataNascita = rs.getDate("dataNascita");
 			String email= rs.getString("email");
 			String telefono= rs.getString("telefono");
-
 
 			Utente utente = new Utente(idUtente,password,nome,cognome,dataNascita,email,telefono, true);
 			utenti.add(utente);
@@ -149,7 +140,7 @@ public class IscrizioneUtenteDAOImpl implements IscrizioneUtenteDAO {
 	@Override
 	public int getNumeroIscritti(int idEdizione) throws SQLException {
 		
-		PreparedStatement ps=conn.prepareStatement("SELECT count(iscritti) as conta FROM iscritti WHERE id_edizione=?");
+		PreparedStatement ps=conn.prepareStatement("select count(id_utente) as conta from iscritti where id_edizione=?");
 
 		ps.setInt(1, idEdizione);
 		
