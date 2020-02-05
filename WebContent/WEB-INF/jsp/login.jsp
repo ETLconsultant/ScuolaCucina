@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Login</title>
+<script type="text/javascript" src="js/gestioneForm.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
@@ -35,7 +36,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<div class="login100-form-title" style="background-image: url(img/food.jpg);">
+				<div class="login100-form-title" style="background-image: url(img/food.jpg);"">
 					<span class="login100-form-title-1">
 						Sign In
 					</span>
