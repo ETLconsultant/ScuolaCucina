@@ -1,11 +1,20 @@
 package service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import dao.CalendarioDAO;
 import dao.CalendarioDAOImpl;
+import dao.IscrizioneUtenteDAO;
+import dao.IscrizioneUtenteDAOImpl;
+import dto.CorsoDTO;
 import dto.EdizioneDTO;
+import entity.Corso;
 import entity.Edizione;
+import entity.Feedback;
+import entity.Utente;
 import exceptions.ConnessioneException;
 import exceptions.DAOException;
 
@@ -13,11 +22,15 @@ public class EdizioneServiceImpl implements EdizioneService{
 
 	//dichiarare qui tutti i dao di cui si ha bisogno
 	private CalendarioDAO daoC;
+	private IscrizioneUtenteDAO daoI;
+	
 	//... dichiarazione di altri DAO
 	
 	//costruire qui tutti i dao di cui si ha bisogno
 	public  EdizioneServiceImpl() throws ConnessioneException{
 		daoC = new CalendarioDAOImpl();
+		daoI = new IscrizioneUtenteDAOImpl();
+		
 		//... costruzione di altri DAO
 	}
 	
@@ -26,7 +39,12 @@ public class EdizioneServiceImpl implements EdizioneService{
 	 */
 	@Override
 	public void inserisciEdizione(Edizione e) throws DAOException {
-		// TODO Auto-generated method stub
+		try {
+			daoC.insert(e);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 	}
 
@@ -36,7 +54,12 @@ public class EdizioneServiceImpl implements EdizioneService{
 	 */
 	@Override
 	public void modificaEdizione(Edizione e) throws DAOException {
-		// TODO Auto-generated method stub
+		try {
+			daoC.update(e);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 	}
 
@@ -47,7 +70,12 @@ public class EdizioneServiceImpl implements EdizioneService{
 	 */
 	@Override
 	public void cancellaEdizione(int idEdizione) throws DAOException {
-		// TODO Auto-generated method stub
+		try {
+			daoC.delete(idEdizione);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -56,8 +84,13 @@ public class EdizioneServiceImpl implements EdizioneService{
 	 * un utente si può iscrivere solo se ci sono ancora posti disponibili considerato che ogni corso a un numero massimo di partecipanti
 	 */
 	@Override
-	public void iscriviUtente(int idEdizione, int idUtente) throws DAOException {
-		// TODO Auto-generated method stub
+	public void iscriviUtente(int idEdizione, String idUtente) throws DAOException {
+		try {
+			daoI.iscriviUtente(idEdizione, idUtente);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -65,8 +98,13 @@ public class EdizioneServiceImpl implements EdizioneService{
 	 * cancella l'iscrizione ad un utente
 	 */
 	@Override
-	public void cancellaIscrizioneUtente(int idEdizione, int idUtente) throws DAOException {
-		// TODO Auto-generated method stub
+	public void cancellaIscrizioneUtente(int idEdizione, String idUtente) throws DAOException {
+		try {
+			daoI.cancellaIscrizioneUtente(idEdizione, idUtente);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -76,8 +114,27 @@ public class EdizioneServiceImpl implements EdizioneService{
 	 */
 	@Override
 	public ArrayList<EdizioneDTO> visualizzaEdizioniPerMese(int mese) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Edizione> lista = new ArrayList<Edizione>();
+		EdizioneDTO edizDTO = new EdizioneDTO();
+		ArrayList<EdizioneDTO> listaDTO = new ArrayList<EdizioneDTO>();
+		listaDTO.add(edizDTO);
+		mese = mese-1;
+		Calendar cal = Calendar.getInstance(); 
+		
+		cal.set(Calendar.MONTH, mese); 
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		Date da = cal.getTime();
+		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DATE));
+		Date a = cal.getTime();
+		
+		try {
+			lista = daoC.select(da, a);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return listaDTO;
+
 	}
 
 	/*
@@ -86,8 +143,24 @@ public class EdizioneServiceImpl implements EdizioneService{
 	 */
 	@Override
 	public ArrayList<EdizioneDTO> visualizzaEdizioniPerAnno(int anno) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+		anno = anno-1;
+		Calendar cal = Calendar.getInstance(); 
+		
+		cal.set(Calendar.YEAR, anno); 
+		cal.set(Calendar.MONTH, 0);
+		Date da = cal.getTime();
+		cal.set(Calendar.MONTH, 12);
+		Date a = cal.getTime();
+		try {
+			daoC.select(da, a);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		EdizioneDTO edizDTO = new EdizioneDTO();
+		ArrayList<EdizioneDTO> listaDTO = new ArrayList<EdizioneDTO>();
+		listaDTO.add(edizDTO);
+		
+		return listaDTO;
 	}
 	
 	/*
@@ -96,8 +169,11 @@ public class EdizioneServiceImpl implements EdizioneService{
 	 */
 	@Override
 	public ArrayList<EdizioneDTO> visualizzaEdizioniPerCorso(int idCorso) throws DAOException {
-		// TODO Auto-generated method stub
+		
 		return null;
+		
+		
+	
 	}
 
 	/*
@@ -106,8 +182,18 @@ public class EdizioneServiceImpl implements EdizioneService{
 	 */
 	@Override
 	public EdizioneDTO visualizzaEdizione(int idEdizione) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			daoC.selectEdizione(idEdizione);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		Edizione edizione = new Edizione();
+		ArrayList<Feedback> feedbacks = new ArrayList<Feedback>() ;
+		ArrayList<Utente> utentiIscritti  = new ArrayList<Utente>();
+		EdizioneDTO edizDTO = new EdizioneDTO(edizione, feedbacks, utentiIscritti);
+		
+		
+    	return edizDTO;
 	}
 
 
