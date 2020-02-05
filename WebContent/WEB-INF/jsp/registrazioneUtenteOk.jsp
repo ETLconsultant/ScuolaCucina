@@ -4,10 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<%@include file="Header.jsp"%>
+<title>Ok</title>
 </head>
 <body>
 
-registrazione avvenuta con successo
+Registrazione avvenuta con successo
+
+<%@include file="Footer.jsp"%>
 </body>
 </html>
