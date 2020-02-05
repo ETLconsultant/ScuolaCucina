@@ -42,11 +42,14 @@ public class DaoTest {
 		
 //		ed = cal.selectEdizione(92);
 		
-		list = cal.select("veronica");
-
-		System.out.println(list);
+//		list = cal.select("veronica");
+//
+//		System.out.println(list);
 		
 		
+		IscrizioneUtenteDAOImpl ut = new IscrizioneUtenteDAOImpl();
+		
+		ut.iscriviUtente(96, "francesco");
 		
 	}
 
