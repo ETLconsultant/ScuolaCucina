@@ -17,9 +17,9 @@ public interface CalendarioDAO {
 	
 	public Edizione selectEdizione(int idEdizione) throws SQLException;
 	
-	public ArrayList<Edizione> select(int idCaregotia) throws SQLException;
+	public ArrayList<Edizione> select(int idCategoria) throws SQLException;
 	
-	public ArrayList<Edizione> select(int idCaregotia, boolean future) throws SQLException;
+	public ArrayList<Edizione> select(int idCategoria, boolean future) throws SQLException;
 	
 	public ArrayList<Edizione> select() throws SQLException;
 	
