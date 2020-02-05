@@ -27,13 +27,29 @@ public class IscrizioneUtenteDAOImpl implements IscrizioneUtenteDAO {
 	@Override
 	public void iscriviUtente(int idEdizione, String idUtente) throws SQLException {
 		
-		PreparedStatement ps =conn.prepareStatement("INSERT INTO iscritti (id_edizione, id_utente) VALUES (?,?)");
-		ps.setInt(1, idEdizione);
-		ps.setString(2, idUtente);
 		
-		ps.executeUpdate();
+		String query = "select ? from iscritti";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setString(1, idUtente);
+		int numero = ps.executeUpdate();
+		if(numero==0) {
+			query = "insert into iscritti (id_edizione, ed_utente) select ?,? from registrati, calendario where registrati.id_utente= ? and calendario.id_edizione = ?";
 		
+			PreparedStatement ps1 = conn.prepareStatement(query);
+			ps1.setInt(1, idEdizione);
+			ps1.setString(2, idUtente);
+			ps1.setInt(3, idEdizione);
+			ps1.setString(4, idUtente);
 		
+			int n = ps1.executeUpdate();
+			if(n>0) {
+				System.out.println("Iscrizione aggiunta correttamente");
+			}else{
+				throw new SQLException("Errore! Utente o edizione non esistono");
+			}
+		}else {
+			throw new SQLException("Errore! Utente già iscritto a questa edizione");
+		}
 	}
 
 	/*
@@ -92,7 +108,7 @@ public class IscrizioneUtenteDAOImpl implements IscrizioneUtenteDAO {
 //		CalendarioDAOImpl ed = new CalendarioDAOImpl();
 		ArrayList<Edizione> edizioni = new ArrayList<Edizione>(); 
 		
-		if()
+	
 		
 //		if((ed.selectEdizione(idEdizione) != null) || (getNumeroIscritti(idEdizione) == 0)) {  
 			
