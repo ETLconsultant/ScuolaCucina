@@ -45,12 +45,13 @@ public class DaoTest {
 //		list = cal.select("veronica");
 //
 //		System.out.println(list);
-		
+	
 		
 		IscrizioneUtenteDAOImpl ut = new IscrizioneUtenteDAOImpl();
 		
 //		ut.iscriviUtente(96, "francesco");
 		ut.cancellaIscrizioneUtente(96, "fausto");
+		
 		
 	}
 

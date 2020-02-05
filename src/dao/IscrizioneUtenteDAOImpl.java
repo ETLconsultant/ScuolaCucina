@@ -71,6 +71,8 @@ public class IscrizioneUtenteDAOImpl implements IscrizioneUtenteDAO {
 			System.out.println("Iscrizione eliminata correttamente");
 		}
 	}
+//	FATTO
+	
 		/*
 	 * lettura di tutte le edizioni a cui è iscritto un utente
 	 * se l'utente non esiste o non è iscritto a nessuna edizione si torna una lista vuota
