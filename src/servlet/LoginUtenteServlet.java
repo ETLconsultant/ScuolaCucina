@@ -24,9 +24,7 @@ import service.*;
 public class LoginUtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	UtenteService userservice;
-	
 	Utente user = new Utente();
-	Utente amministratore= new Utente();
 	String messageLogin="  ";
 	String messageArea=" ";
        
@@ -64,50 +62,64 @@ public class LoginUtenteServlet extends HttpServlet {
 		request.removeAttribute("cognome");
 		
 		HttpSession session = request.getSession();
-		String idUtente = request.getParameter("id_utente");
-		String password = request.getParameter("password");
-		String idAdmin = request.getParameter("id_amministratore");
-		
-		
-		
 		session.setAttribute("messageArea", messageArea);
 		session.setAttribute("messageLogin", messageLogin);
+		String idGenerico = request.getParameter("username");
+		String password = request.getParameter("password");
+		user.setIdUtente(idGenerico);
+		user.setPassword(password);
 	
+		String submit=request.getParameter("bottone");
+		
+		if (submit.equalsIgnoreCase("amministratore")) {
+			try {
+				if (userservice.checkCredenziali(idGenerico, password).equals(user)){
+//				messageLogin="idAmministratore o password corretti";
+//				session.setAttribute("messageLogin", messageLogin);
+					RequestDispatcher rd = request.getRequestDispatcher("/areaPersonaleAdmin.jsp");
+					rd.forward(request, response);
+					return;
 					
-					try {
-						if(user.isAdmin()) {
-							System.out.println("ma davvero?" + userservice.checkCredenziali(idAdmin, password));
-							if(userservice.checkCredenziali(idAdmin, password).equals(user)) {
-								System.out.println("errore nel if del try");
-								messageLogin="idAmministratore o password errati";
-								session.setAttribute("messageLogin", messageLogin);
-								RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
-								rd.forward(request, response);
-								return;
-							
-						}else {
-							System.out.println(" ma davvero?" + userservice.checkCredenziali(idUtente, password));
-							if(userservice.checkCredenziali(idUtente, password).equals(user)) {
-								System.out.println("errore nel if del try");
-								messageLogin="idUtente o password errati";
-								session.setAttribute("messageLogin", messageLogin);
-								RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
-								rd.forward(request, response);
-								return;
-							}
-						}
-							
-						}
-						
-					} catch (DAOException e) {
-						e.printStackTrace();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
+				}else {
+					messageLogin="idAmministratore o password errati";
+					session.setAttribute("messageLogin", messageLogin);
+					RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
+					rd.forward(request, response);
+					return;
+				}
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else {
+			try {
+				if (userservice.checkCredenziali(idGenerico, password).equals(user)) {
+					RequestDispatcher rd = request.getRequestDispatcher("/areaPersonale.jsp");
+					rd.forward(request, response);
+					return;
 
-        	
-        
-	
+				}else {
+					messageLogin="idUtente o password errati";
+					session.setAttribute("messageLogin", messageLogin);
+					RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
+					rd.forward(request, response);
+					return;
+
+				}
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	}
+					
+					
 	}
 }
 	

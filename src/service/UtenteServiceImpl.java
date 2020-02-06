@@ -72,8 +72,9 @@ public class UtenteServiceImpl implements UtenteService {
 		
 		try {
 			Utente u = new Utente();
-			if(u.isAdmin()) {
-				String idAmministratore = idUtente;
+			String idAmministratore = idUtente;
+			u=daoA.select(idAmministratore, psw);
+			if(u==null) {
 				return daoA.select(idAmministratore, psw);
 			}else {
 				return daoU.select(idUtente, psw);
