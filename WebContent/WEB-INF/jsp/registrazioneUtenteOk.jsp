@@ -11,6 +11,9 @@
 
 Registrazione avvenuta con successo
 
+
+<footer>
 <%@include file="Footer.jsp"%>
+</footer>
 </body>
 </html>
