@@ -21,7 +21,7 @@
 			<c:forEach items="${lista}" var="errore">
 				<c:if test="${errore.campoValidato=='idUtente'}"> ${errore.descrizioneErrore}</c:if>
 			</c:forEach>
-			<br>
+			<br> 
 
 			<h4>Password</h4>
 			<br> <input type="text" name="password">
