@@ -73,9 +73,9 @@
 				<c:if test="${errore.campoValidato=='telefono'}"> ${errore.descrizioneErrore}</c:if>
 			</c:forEach> <br>
 			<h4>Sei un amministratore?</h4>
-			<label> <input type="checkbox" class="radio" value="admin"
+			<label> <input type="checkbox" class="radio" value="true"
 				name="admin" />Si
-			</label> <label> <input type="checkbox" class="radio" value="admin"
+			</label> <label> <input type="checkbox" class="radio" value="false"
 				name="admin" />No
 			</label> <br> <br> <br> <input type="submit" value="registra"
 				class="button"><br>
