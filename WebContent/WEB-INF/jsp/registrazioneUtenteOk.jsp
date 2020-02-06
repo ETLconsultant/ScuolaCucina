@@ -5,15 +5,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <%@include file="Header.jsp"%>
+<style>
+.wrap{
+  	min-height: 100%;
+    height: auto;
+    margin: 0 auto 470px; 
+ }
+ 
+ p{
+ font-size: 18px;
+ }
+
+</style>
 <title>Ok</title>
 </head>
 <body>
+<div class="wrap">
 
-Registrazione avvenuta con successo
+<p>Registrazione avvenuta con successo</p>
 
 
-<footer>
+</div>
 <%@include file="Footer.jsp"%>
-</footer>
+
 </body>
 </html>
