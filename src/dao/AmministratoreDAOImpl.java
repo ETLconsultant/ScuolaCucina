@@ -43,8 +43,8 @@ public class AmministratoreDAOImpl implements AmministratoreDAO {
 
 	/*
 	 * modifica di tutti i dati di un amministratore.
- 	 * L'aministratore viene individuato in base al idAmministratore
- 	 * Se non esiste viene sollevata una eccezione
+	 * L'aministratore viene individuato in base al idAmministratore
+	 * Se non esiste viene sollevata una eccezione
 	 */
 	@Override
 	public void update(Utente amministratore) throws SQLException{
@@ -117,14 +117,14 @@ public class AmministratoreDAOImpl implements AmministratoreDAO {
 	public Utente select(String idAmministratore, String password) throws SQLException {
 		Utente amministratore = new Utente();
 		String query = "select * from amministratori where id_amministratore=? and password=? ";
-		
-			prepared=conn.prepareStatement(query);
-			prepared.setString(1, idAmministratore);
-			prepared.setString(2, password);
-			rs=prepared.executeQuery();
-			
-			if(rs.next()){
-			
+
+		prepared=conn.prepareStatement(query);
+		prepared.setString(1, idAmministratore);
+		prepared.setString(2, password);
+		rs=prepared.executeQuery();
+
+		if(rs.next()){
+
 			amministratore.setIdUtente(rs.getString("id_amministratore"));
 			amministratore.setPassword(rs.getString("password"));
 			amministratore.setNome(rs.getString("nome"));
@@ -134,14 +134,15 @@ public class AmministratoreDAOImpl implements AmministratoreDAO {
 			amministratore.setTelefono(rs.getString("telefono"));
 			close();
 			return amministratore;
-			}
-			
-			else
-				close();
-				throw new SQLException("amministratore: " + idAmministratore + " non presente");
+		}
 
+		else {
+			close();
+			throw new SQLException("amministratore: " + idAmministratore + " non presente");
+
+		}
 	}
-	
+
 
 
 
@@ -159,16 +160,16 @@ public class AmministratoreDAOImpl implements AmministratoreDAO {
 			}catch (SQLException e) {
 				e.printStackTrace();
 			}
-		
+
 	}
-	
+
 	public static void main(String[] args) throws Exception{
 		AmministratoreDAO dao= new AmministratoreDAOImpl();
 		Utente u = new Utente("aa","aa","aa","aa", new java.util.Date(),"pp","pp", true);
-//		dao.insert(u);
-//		u.setCognome("Doria");
-//		dao.delete("aa");
-//		dao.update(u);
-//		System.out.println(dao.select("marco81"));
+		//		dao.insert(u);
+		//		u.setCognome("Doria");
+		//		dao.delete("aa");
+		//		dao.update(u);
+		//		System.out.println(dao.select("marco81"));
 	}
 }
