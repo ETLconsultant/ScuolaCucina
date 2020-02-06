@@ -27,6 +27,8 @@
 			<input type="submit" name="cancellare" value="Cancella account"
 				class="button1">
 		</form>
+		
+		
 	</div>
 	<%@include file="Footer.jsp"%>
 </body>
