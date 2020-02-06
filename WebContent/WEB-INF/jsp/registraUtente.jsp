@@ -18,7 +18,7 @@
 			<h3>REGISTRAZIONE UTENTE</h3>
 			<br>
 			<h4>Username</h4>
-			<br> <input type="text" name="idUtente">
+			<br> <input type="text" name="username">
 			<c:forEach items="${lista}" var="errore">
 				<c:if test="${errore.campoValidato=='idUtente'}"> ${errore.descrizioneErrore}</c:if>
 			</c:forEach>
