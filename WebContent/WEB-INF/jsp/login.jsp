@@ -42,6 +42,12 @@
 					</span>
 				</div>  
 
+	<%
+			String messaggio = (String) request.getAttribute("messaggeLogin");
+			if (messaggio != null) {
+				out.println(messaggio);
+			} %>
+			
 				<form class="login100-form validate-form" action="LoginUtenteServlet" method="post">
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100">Username</span>
