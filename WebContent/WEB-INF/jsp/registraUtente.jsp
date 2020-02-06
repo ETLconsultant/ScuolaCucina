@@ -42,22 +42,15 @@
 				<c:if test="${errore.campoValidato=='cognome'}"> ${errore.descrizioneErrore}</c:if>
 			</c:forEach>
 			<br>
-			<h4>Giorno di nascita:</h4>
-			<select name="giorno">
-				<c:forEach begin="1" end="31" var="i">
-					<option value="${i}">${i}</option>
-				</c:forEach>
-			</select><br>
-			<h4>Mese di nascita:</h4>
-			<select name="mese">
-				<c:forEach begin="1" end="12" var="i">
-					<option value="${i}">${i}</option>
-				</c:forEach>
-			</select> <br>
-			<h4>Anno di nascita</h4>
-			<br> <input type="text" name="anno">
+			<h4>Data di nascita</h4>
+			<input type="date" name="dataNascita" onclick="fieldValidationDate()">
 			<c:forEach items="${lista}" var="errore">
-				<c:if test="${errore.campoValidato=='anno'}"> ${errore.descrizioneErrore}</c:if>
+				<c:if test="${errore.campoValidato=='dataNascita'}"> ${errore.descrizioneErrore}</c:if>
+			</c:forEach> <br>
+			<h4>EMail</h4>
+			<br> <input type="text" name="email">
+			<c:forEach items="${lista}" var="errore">
+				<c:if test="${errore.campoValidato=='email'}"> ${errore.descrizioneErrore}</c:if>
 			</c:forEach>
 			<br>
 			<h4>EMail</h4>
