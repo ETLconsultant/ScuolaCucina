@@ -26,7 +26,7 @@ public class Validatore{
 		List<ErroreValidazione> lista = new ArrayList<>();
 		String passwordExpression = "^(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%*^&+=])(?=\\S+$).{8,20}$";
 
-		String idUtente = request.getParameter("idUtente");
+		String idUtente = request.getParameter("username");
 		String password = request.getParameter("password");
 		String nome = request.getParameter("nome");
 		String cognome = request.getParameter("cognome");
@@ -41,6 +41,11 @@ public class Validatore{
 		if(idUtente == null || idUtente.length()==0) {
 			lista.add(new ErroreValidazione("idUtente", "idUtente " + bundle.getString("error.required")));
 			System.out.println("idUtente == null || idUtente.length()==0");
+		}
+		
+		if(idUtente.length() > 50) {
+			lista.add(new ErroreValidazione("idUtente", "idUtente " + bundle.getString("error.minlength") + " 50"));
+			System.out.println("idUtente.length() > 50");
 		}
 
 		if(password == null || password.length()==0) {
