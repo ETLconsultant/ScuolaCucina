@@ -4,7 +4,9 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 	<display-name>ScuolaCucina11</display-name>
-
+	
+	
+	
 	<servlet>
 		<servlet-name>registraUtente</servlet-name>
 		<jsp-file>/WEB-INF/jsp/registraUtente.jsp</jsp-file>
@@ -107,6 +109,17 @@
 	<servlet-mapping>
 		<servlet-name>updateDati</servlet-name>
 		<url-pattern>/updateDati.jsp</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>areaPersonaleAdmin</servlet-name>
+		<jsp-file>/WEB-INF/jsp/areaPersonaleAdmin.jsp</jsp-file>
+	</servlet>
+
+
+	<servlet-mapping> 
+		<servlet-name>areaPersonaleAdmin</servlet-name>
+		<url-pattern>/areaPersonaleAdmin.jsp</url-pattern>
 	</servlet-mapping>
 
 
