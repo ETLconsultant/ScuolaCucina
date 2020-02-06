@@ -52,7 +52,7 @@ public class LoginUtenteServlet extends HttpServlet {
 		List<ErroreValidazione> lista = Validatore.validazioneUtente(request);
 		 
 		if(lista.size()!=0){
-			request.setAttribute("lista", lista );
+			request.setAttribute("lista", lista);
 			System.out.println(lista);
 			getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
 			return;

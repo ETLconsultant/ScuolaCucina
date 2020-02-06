@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +51,7 @@
 				</div>
 
 				<%
-					String messaggio = (String) request.getAttribute("messaggeLogin");
+					String messaggio = (String) request.getAttribute("messageLogin");
 					if (messaggio != null) {
 						out.println(messaggio);
 					}
@@ -62,7 +64,11 @@
 						<span class="label-input100">Username</span> <input
 							class="input100" type="text" name="username"
 							placeholder="Enter username"> <span
-							class="focus-input100"></span>
+							class="focus-input100"> </span>
+
+						<c:forEach items="${lista}" var="errore">
+							<c:if test="${errore.campoValidato=='idUtente'}"> ${errore.descrizioneErrore}</c:if>
+						</c:forEach>
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-18"
@@ -71,6 +77,10 @@
 							class="input100" type="password" name="password"
 							placeholder="Enter password"> <span
 							class="focus-input100"></span>
+							
+							<c:forEach items="${lista}" var="errore">
+							<c:if test="${errore.campoValidato=='password'}"> ${errore.descrizioneErrore}</c:if>
+						</c:forEach>
 					</div>
 					<br> <br> <input type="hidden" name="nome" value="nome"
 						size="20 px"> <input type="hidden" name="cognome"
