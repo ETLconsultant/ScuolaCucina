@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Catalogo</title>
 <style>
 * {
 	box-sizing: border-box;

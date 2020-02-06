@@ -17,7 +17,7 @@
  }
 
 </style>
-<title>Ok</title>
+<title>Registrazione effettuata</title>
 </head>
 <body>
 <div class="wrap">
