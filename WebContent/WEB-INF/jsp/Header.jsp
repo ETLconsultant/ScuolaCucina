@@ -48,7 +48,7 @@
 					<li><a href="#about">Chi siamo</a></li>
 					<li><a href="catalogo.jsp">Catalogo</a></li>
 					<li><a href="calendario.jsp">Calendario</a></li>
-				</ul>
+				</ul> 
 
 				<ul class="nav navbar-nav navbar-right">
 		 			<%
