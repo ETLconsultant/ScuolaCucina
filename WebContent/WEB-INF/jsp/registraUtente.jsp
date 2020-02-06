@@ -71,12 +71,12 @@
 			<br> <input type="text" name="telefono">
 			<c:forEach items="${lista}" var="errore">
 				<c:if test="${errore.campoValidato=='telefono'}"> ${errore.descrizioneErrore}</c:if>
-			</c:forEach>
+			</c:forEach> <br>
 			<h4>Sei un amministratore?</h4>
-			<label> <input type="checkbox" class="radio" value="1"
-				name="fooby[1][]" />Si
-			</label> <label> <input type="checkbox" class="radio" value="1"
-				name="fooby[1][]" />No
+			<label> <input type="checkbox" class="radio" value="admin"
+				name="admin" />Si
+			</label> <label> <input type="checkbox" class="radio" value="admin"
+				name="admin" />No
 			</label> <br> <br> <br> <input type="submit" value="registra"
 				class="button"><br>
 
