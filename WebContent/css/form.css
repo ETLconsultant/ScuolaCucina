@@ -66,3 +66,15 @@ input[type=date]{
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
+
+/*Checkbox*/
+input[type="checkbox"]{
+	
+	background-color: #800000;
+	width:19px;
+    height:19px;	
+}
+
+input[type=checkbox]:checked{
+	background-color: #800000;
+}
