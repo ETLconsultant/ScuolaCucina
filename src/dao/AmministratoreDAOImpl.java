@@ -138,7 +138,12 @@ public class AmministratoreDAOImpl implements AmministratoreDAO {
 
 		else {
 			close();
-			throw new SQLException("amministratore: " + idAmministratore + " non presente");
+			try {
+				throw new SQLException("amministratore: " + idAmministratore + " non presente");
+			}catch(SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
 
 		}
 	}
