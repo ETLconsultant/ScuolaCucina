@@ -2,6 +2,9 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -49,7 +52,7 @@ public class RegistrazioneUtenteServlet extends HttpServlet {
 		}
 		request.setAttribute("user", u);
 		getServletContext().getRequestDispatcher("/registrazioneUtenteOk.jsp").forward(request, response);
-		
+
 
 	}
 
@@ -58,28 +61,42 @@ public class RegistrazioneUtenteServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String nome = request.getParameter("nome");
 		String cognome = request.getParameter("cognome");
-		String giorno = request.getParameter("giorno");
-		String mese = request.getParameter("mese");
-		String anno = request.getParameter("anno");
-		LocalDate l = LocalDate.of(Integer.parseInt(anno), Integer.parseInt(mese), Integer.parseInt(giorno));
-		Date d = java.util.Date.from(l.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+		String dataNascita = request.getParameter("dataNascita");
+
+		//		String giorno = request.getParameter("giorno");
+		//		String mese = request.getParameter("mese");
+		//		String anno = request.getParameter("anno");
+		//		LocalDate l = LocalDate.of(Integer.parseInt(anno), Integer.parseInt(mese), Integer.parseInt(giorno));
+		//		Date d = java.util.Date.from(l.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+
+		Date date = new Date();
+		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+
+		try {
+			date = sdf.parse(dataNascita);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		String email = request.getParameter("email");
 		String telefono = request.getParameter("telefono");
 
 		boolean adm = Boolean.valueOf(request.getParameter("admin"));
 		System.out.println("stampa: " + adm);
-		System.out.println(new Utente(idGenerico, password, nome, cognome, d, email, telefono, adm));
-			
-			return new Utente(idGenerico, password, nome, cognome, d, email, telefono, adm);
-			
-		
-		
-		
-		
-		
-		
+		System.out.println(new Utente(idGenerico, password, nome, cognome, date, email, telefono, adm));
 
-		
+		return new Utente(idGenerico, password, nome, cognome, date, email, telefono, adm);
+
+
+
+
+
+
+
+
+
 
 
 
