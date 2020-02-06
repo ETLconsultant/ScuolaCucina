@@ -61,6 +61,14 @@
 						<span class="focus-input100"></span>
 					</div>
 					<br> <br>
+					<input type="hidden" name="nome" value="nome" size="20 px"> 
+					<input type="hidden" name="cognome" value="cognome" size="20 px">
+					<input type="hidden" name="dataNascita" value = "2000-02-06">
+					<input type="hidden" name="email" value = "savoia@savoia.savoia">
+					<input type="hidden" name="telefono" value = "0123456789">
+					<input type="hidden" name="admin" value = "false">
+					
+					
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" name="bottone" value="utente">
 							Login Utente
