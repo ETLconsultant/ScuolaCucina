@@ -79,6 +79,7 @@ public class LoginUtenteServlet extends HttpServlet {
 				if (userservice.checkCredenziali(idGenerico, password)!= null){
 //				messageLogin="idAmministratore o password corretti";
 //				session.setAttribute("messageLogin", messageLogin);
+					System.out.println("nell'if di amministratore");
 					RequestDispatcher rd = request.getRequestDispatcher("/areaPersonaleAdmin.jsp");
 					rd.forward(request, response);
 					return;
