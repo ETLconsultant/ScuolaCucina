@@ -56,7 +56,7 @@ public class LoginUtenteServlet extends HttpServlet {
 			System.out.println(lista);
 			getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
 			return;
-		}
+		} 
 		
 //		request.removeAttribute("nome");
 //		request.removeAttribute("cognome");

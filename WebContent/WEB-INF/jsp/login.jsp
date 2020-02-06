@@ -64,7 +64,7 @@
 						<span class="label-input100">Username</span> <input
 							class="input100" type="text" name="username"
 							placeholder="Enter username"> <span
-							class="focus-input100"> </span>
+							class="focus-input100"> </span> 
 
 						<c:forEach items="${lista}" var="errore">
 							<c:if test="${errore.campoValidato=='idUtente'}"> ${errore.descrizioneErrore}</c:if>
