@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import entity.Carrello;
 import entity.Edizione;
 import entity.Utente;
 import exceptions.ConnessioneException;
@@ -15,7 +16,7 @@ public class DaoTest {
 		// TODO Auto-generated method stub
 		CalendarioDAOImpl cal = new CalendarioDAOImpl();
 		
-		Edizione ed = new Edizione();
+		
 		
 		Date data = new Date();
 		
@@ -23,12 +24,26 @@ public class DaoTest {
 		
 		dateformat.format(data);
 		
-		ed.setIdEdizione(101);
-		ed.setDurata(15);
-		ed.setDataInizio(data);
-		ed.setAula("lagrange");
-		ed.setDocente("SARA");
+		Edizione ed = new Edizione();
+//		ed.setIdEdizione(95);
+//		ed.setDurata(15);
+//		ed.setDataInizio(data);
+//		ed.setAula("lagrange");
+//		ed.setDocente("SARA");
 		
+		Edizione ed2 = new Edizione();
+		ed2.setIdEdizione(99);
+		ed2.setDurata(7);
+		ed2.setDataInizio(data);
+		ed2.setAula("magna cum laude");
+		ed2.setDocente("giogio");
+		
+		Edizione ed3 = new Edizione();
+		ed3.setIdEdizione(12);
+		ed3.setDurata(3);
+		ed3.setDataInizio(data);
+		ed3.setAula("lucifer");
+		ed3.setDocente("luciana");
 //		Utente ut = new  Utente();
 		
 //		cal.delete(93);
@@ -47,7 +62,7 @@ public class DaoTest {
 //		System.out.println(list);
 	
 		
-		IscrizioneUtenteDAOImpl ut = new IscrizioneUtenteDAOImpl();
+//		IscrizioneUtenteDAOImpl ut = new IscrizioneUtenteDAOImpl();
 		
 //		ut.iscriviUtente(96, "francesco");
 //		ut.cancellaIscrizioneUtente(96, "francesco");
@@ -55,7 +70,30 @@ public class DaoTest {
 //		ut.iscriviUtente(97, "fausto");
 //		System.out.println(ut.selectIscrizioniUtente("francesco"));
 //		System.out.println(ut.selectUtentiPerEdizione(90));
-		System.out.println(ut.getNumeroIscritti(97));
+//		System.out.println(ut.getNumeroIscritti(97));
+		
+		ed = cal.selectEdizione(95);
+		
+		Carrello bag = new Carrello();
+		
+		bag.aggiungiEdizione(ed);
+		bag.aggiungiEdizione(ed2);
+		bag.aggiungiEdizione(ed3);
+		
+		Edizione c = new Edizione();
+		
+
+		
+		 list = bag.getEdizioniAcquistate();
+		 
+		 System.out.println(list);
+		 
+		 
+			c = bag.getEdizione(95);
+			System.out.println(c);
+		
 	}
+	
+	
 
 }

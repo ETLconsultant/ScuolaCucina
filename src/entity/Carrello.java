@@ -20,12 +20,13 @@ public class Carrello {
 
 	/*
 	 * aggiunge una edizione nel carrello
-	 * se l'edizione già è presente nel carrello questa non va aggiuta
+	 * se l'edizione già è presente nel carrello questa non va aggiunta
 	 */
 	public void aggiungiEdizione (Edizione e){
 		
 		if( !(edizioniAcquistate.contains(e))) {	//se non contiene 'edizione fai aggiunta
 			edizioniAcquistate.add(e);
+			System.out.println("edizione aggiunta al carrello");
 		}
 		
 	}
@@ -38,6 +39,7 @@ public class Carrello {
 		
 		if(edizioniAcquistate.contains(e)) {
 			edizioniAcquistate.remove(e);
+			System.out.println("edizione rimossa dal carrello");
 		}
 	}
 	
@@ -47,16 +49,16 @@ public class Carrello {
 	 */
 	public Edizione getEdizione(int idEdizione) throws ConnessioneException, SQLException{
 		
-		 CalendarioDAO calendar = new CalendarioDAOImpl() ;	//legge da table calendario
-		 Edizione ediz = new Edizione();
-		 ediz = calendar.selectEdizione(idEdizione);
-		 
-		if( edizioniAcquistate.contains(ediz)) {
-			return ediz;
-		}
-		else {
-			return null;
-		}
+		 for (int i = 0; i < edizioniAcquistate.size()	; i++) {
+			 if(edizioniAcquistate.get(i).getIdEdizione() == idEdizione) {
+				 System.out.println("edizione prelevata dal carrello");
+					return edizioniAcquistate.get(i);
+			 }
+			 else {
+				return null;
+				}
+		 }
+		return null;
 		 
 	}
 	
@@ -66,6 +68,7 @@ public class Carrello {
 	 */
 	public ArrayList<Edizione> getEdizioniAcquistate() throws ConnessioneException {
 
+		System.out.println("lista edizioni a carrello");
 		return edizioniAcquistate;
 	}
 
@@ -74,6 +77,7 @@ public class Carrello {
 	 */
 	public int getSize(){
 		
+		System.out.println("numero edizioni a carrello");
 		return edizioniAcquistate.size();
 	}
 
@@ -85,6 +89,7 @@ public class Carrello {
 		double somma = 0;
 		for(int i = 0 ; i < edizioniAcquistate.size(); i ++ ) {
 		somma += edizioniAcquistate.get(i).getCorso().getCosto();	//edizioniAcquistate contiene edizioni che contengono corso che contiene costo
+		System.out.println("costo totale carrello");
 		}
 		
 		return somma;
