@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<head> 
+<head>
 <style>
 .navbar li a, .navbar .navbar-brand {
 	color: #fff !important;
@@ -45,17 +45,15 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-left">
-					<li><a href="#about">ABOUT</a></li>
-					<li><a href="#services">SERVICES</a></li>
-					<li><a href="#portfolio">PORTFOLIO</a></li>
-					<li><a href="#pricing">PRICING</a></li>
-					<li><a href="#contact">CONTACT</a></li>
-				</ul>
+					<li><a href="#about">Chi siamo</a></li>
+					<li><a href="catalogo.jsp">Catalogo</a></li>
+					<li><a href="calendario.jsp">Calendario</a></li>
+				</ul> 
 
 				<ul class="nav navbar-nav navbar-right">
-					<%
+		 			<%
 						String username = (String) session.getAttribute("idUtente");
-					%>
+					%> 
 					<%
 						if (session.getAttribute("idUtente") == null) {
 					%>
