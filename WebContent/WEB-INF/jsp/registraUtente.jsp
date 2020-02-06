@@ -7,8 +7,8 @@
 <%@include file="Header.jsp"%>
  
 <link rel="stylesheet" type="text/css" href="css/form.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
 </head>
 <body>
 	<div align="center">
@@ -62,16 +62,16 @@
 			<br>
 			<h4>EMail</h4>
 			<br> <input type="text" name="email">
-			<c:forEach items="${lista}" var="errore">
+			<!--<c:forEach items="${lista}" var="errore">
 				<c:if test="${errore.campoValidato=='email'}"> ${errore.descrizioneErrore}</c:if>
-			</c:forEach>
+			</c:forEach> -->
 			<br>
 
 			<h4>Telefono</h4>
 			<br> <input type="text" name="telefono">
-			<c:forEach items="${lista}" var="errore">
+			<!-- <c:forEach items="${lista}" var="errore">
 				<c:if test="${errore.campoValidato=='telefono'}"> ${errore.descrizioneErrore}</c:if>
-			</c:forEach> <br>
+			</c:forEach>--> <br>
 			<h4>Sei un amministratore?</h4>
 			<label> <input type="checkbox" class="radio" value="true"
 				name="admin" />Si
