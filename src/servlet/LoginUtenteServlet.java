@@ -60,7 +60,7 @@ public class LoginUtenteServlet extends HttpServlet {
 //		
 //		request.removeAttribute("nome");
 //		request.removeAttribute("cognome");
-		
+		System.out.println("Entrato nella servlet.");
 		HttpSession session = request.getSession();
 		session.setAttribute("messageArea", messageArea);
 		session.setAttribute("messageLogin", messageLogin);
@@ -69,11 +69,12 @@ public class LoginUtenteServlet extends HttpServlet {
 		session.setAttribute("username", idGenerico);
 		user.setIdUtente(idGenerico);
 		user.setPassword(password);
-	
+		
 	
 		String submit=request.getParameter("bottone");
 		
 		if (submit.equalsIgnoreCase("amministratore")) {
+			System.out.println("if submit.equalsIgnoreCase(\"amministratore\") " + submit);
 			try {
 				if (userservice.checkCredenziali(idGenerico, password)!= null){
 //				messageLogin="idAmministratore o password corretti";
@@ -97,6 +98,7 @@ public class LoginUtenteServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}else {
+			System.out.println("else");
 			try {
 				if (userservice.checkCredenziali(idGenerico, password)!=null) {
 					RequestDispatcher rd = request.getRequestDispatcher("/areaPersonale.jsp");
