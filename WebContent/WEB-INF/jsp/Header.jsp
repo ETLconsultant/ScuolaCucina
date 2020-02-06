@@ -53,7 +53,7 @@
 				<ul class="nav navbar-nav navbar-right">
 		 			<%
 						String username = (String) session.getAttribute("idUtente");
-					%>
+					%> 
 					<%
 						if (session.getAttribute("idUtente") == null) {
 					%>
