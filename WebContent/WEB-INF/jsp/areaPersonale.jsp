@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 <%@include file="Header.jsp"%>
 <title>Area Personale</title>
-<%String username1 = (String) session.getAttribute("idUtente"); %>
+<%String username1 = (String) session.getAttribute("username"); %>
 <link rel="stylesheet" type="text/css" href="css/form.css">
 </head>
 <body>
