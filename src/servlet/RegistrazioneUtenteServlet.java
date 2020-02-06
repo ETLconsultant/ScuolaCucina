@@ -49,6 +49,7 @@ public class RegistrazioneUtenteServlet extends HttpServlet {
 		}
 		request.setAttribute("user", u);
 		getServletContext().getRequestDispatcher("/registrazioneUtenteOk.jsp").forward(request, response);
+		
 
 	}
 
