@@ -19,7 +19,7 @@
 			<a href="updateDati.jsp" id="dati"> Modifica Dati</a>
 		</button>
 
-		<br> <br>
+		<br> <br> 
 
 	</div>
 	<%@include file="Footer.jsp"%>

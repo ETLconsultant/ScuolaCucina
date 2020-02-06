@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="css/areaP.css">
 </head>
 <body>
- <div class="wrap">
+ <div class="wrap"> 
 	<p>
 		Ciao
 		<%=username1%>, da qui puoi modificare i tuoi dati o cancellare il tuo

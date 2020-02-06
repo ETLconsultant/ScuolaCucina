@@ -6,7 +6,7 @@ p{
 	font-size: 18px;
 }
 .wrap{
-	height: auto;
+	height: auto; 
 	min-height: 65%;
 	position: relative;
 	margin: 0 auto 300px;
