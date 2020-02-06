@@ -12,8 +12,13 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <%@include file="Header.jsp"%>
 <title>Home Page</title>
+<% String messageLogout = (String)request.getAttribute("messageLogout");%>
 </head>
 <body>
+
+<%if (messageLogout!=null ){%>
+<%=messageLogout %>
+<%} %>
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
 		<!-- Indicators -->
 		<ol class="carousel-indicators">

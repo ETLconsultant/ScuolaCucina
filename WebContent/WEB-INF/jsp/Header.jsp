@@ -3,21 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-.navbar li a, .navbar .navbar-brand {
-	color: #fff !important;
-}
 
-.navbar-nav li a:hover, .navbar-nav li.active a {
-	color: white !important;
-	background-color: #800000 !important;
-}
+<link rel="stylesheet" type="text/css" href="css/header.css">
 
-.navbar-default .navbar-toggle {
-	border-color: transparent;
-	color: #fff !important;
-}
-</style>
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -64,6 +52,11 @@
 					%>
 					<li><a href="carrello.jsp"> Carrello</a></li>
 					<li><a class="active" href="areaPersonale.jsp"> <%=username%></a></li>
+					 <li><form action="LogoutUtenteServlet">
+					<input type="submit" name="submit" value="Logout"
+								class="button2">
+					</form></li>
+					
 
 					<%
 						}
