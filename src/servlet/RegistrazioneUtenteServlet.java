@@ -48,13 +48,12 @@ public class RegistrazioneUtenteServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.setAttribute("user", u);
-		getServletContext().getRequestDispatcher("/WEB-INF/jsp/registrazioneUtenteOk.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/registrazioneUtenteOk.jsp").forward(request, response);
 
 	}
 
 	private Utente getUtenteFromQueryString(HttpServletRequest request){
-
-		String idUtente = request.getParameter("idUtente");
+		String idGenerico= request.getParameter("idUtente");
 		String password = request.getParameter("password");
 		String nome = request.getParameter("nome");
 		String cognome = request.getParameter("cognome");
@@ -63,12 +62,23 @@ public class RegistrazioneUtenteServlet extends HttpServlet {
 		String anno = request.getParameter("anno");
 		LocalDate l = LocalDate.of(Integer.parseInt(anno), Integer.parseInt(mese), Integer.parseInt(giorno));
 		Date d = java.util.Date.from(l.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-
 		String email = request.getParameter("email");
 		String telefono = request.getParameter("telefono");
-		boolean adm = false;
 
-		return new Utente(idUtente, password, nome, cognome, d, email, telefono, adm);
+		boolean adm = Boolean.valueOf(request.getParameter("admin"));
+		System.out.println("stampa: " + adm);
+		System.out.println(new Utente(idGenerico, password, nome, cognome, d, email, telefono, adm));
+			
+			return new Utente(idGenerico, password, nome, cognome, d, email, telefono, adm);
+			
+		
+		
+		
+		
+		
+		
+
+		
 
 
 
