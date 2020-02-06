@@ -21,10 +21,14 @@ input[type=password]:focus {
   width: 23%;
   background-color: #FFDEAD;
 } 
-
+input[type=date]{
+	 border: 2px solid #800000;
+	   width: 23%;
+}
 input[type=date]:focus {
   width: 23%;
   background-color: #FFDEAD;
+ border: 2px solid #800000;
 } 
 
 select {
