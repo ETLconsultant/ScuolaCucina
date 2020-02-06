@@ -49,15 +49,15 @@ public class LoginUtenteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		userservice = new UtenteServiceImpl();
-//		List<ErroreValidazione> lista = Validatore.validazioneUtente(request);
-//		 
-//		if(lista.size()!=0){
-//			request.setAttribute("lista", lista );
-//			System.out.println(lista);
-//			getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
-//			return;
-//		}
-//		
+		List<ErroreValidazione> lista = Validatore.validazioneUtente(request);
+		 
+		if(lista.size()!=0){
+			request.setAttribute("lista", lista);
+			System.out.println(lista);
+			getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+			return;
+		} 
+		
 //		request.removeAttribute("nome");
 //		request.removeAttribute("cognome");
 		System.out.println("Entrato nella servlet.");
