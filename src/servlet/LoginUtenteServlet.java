@@ -49,31 +49,33 @@ public class LoginUtenteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		userservice = new UtenteServiceImpl();
-		List<ErroreValidazione> lista = Validatore.validazioneUtente(request);
-		 
-		if(lista.size()!=0){
-			request.setAttribute("lista", lista );
-			System.out.println(lista);
-			getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
-			return;
-		}
-		
-		request.removeAttribute("nome");
-		request.removeAttribute("cognome");
+//		List<ErroreValidazione> lista = Validatore.validazioneUtente(request);
+//		 
+//		if(lista.size()!=0){
+//			request.setAttribute("lista", lista );
+//			System.out.println(lista);
+//			getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+//			return;
+//		}
+//		
+//		request.removeAttribute("nome");
+//		request.removeAttribute("cognome");
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("messageArea", messageArea);
 		session.setAttribute("messageLogin", messageLogin);
 		String idGenerico = request.getParameter("username");
 		String password = request.getParameter("password");
+		session.setAttribute("username", idGenerico);
 		user.setIdUtente(idGenerico);
 		user.setPassword(password);
+	
 	
 		String submit=request.getParameter("bottone");
 		
 		if (submit.equalsIgnoreCase("amministratore")) {
 			try {
-				if (userservice.checkCredenziali(idGenerico, password).equals(user)){
+				if (userservice.checkCredenziali(idGenerico, password)!= null){
 //				messageLogin="idAmministratore o password corretti";
 //				session.setAttribute("messageLogin", messageLogin);
 					RequestDispatcher rd = request.getRequestDispatcher("/areaPersonaleAdmin.jsp");
@@ -96,7 +98,7 @@ public class LoginUtenteServlet extends HttpServlet {
 			}
 		}else {
 			try {
-				if (userservice.checkCredenziali(idGenerico, password).equals(user)) {
+				if (userservice.checkCredenziali(idGenerico, password)!=null) {
 					RequestDispatcher rd = request.getRequestDispatcher("/areaPersonale.jsp");
 					rd.forward(request, response);
 					return;
