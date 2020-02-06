@@ -42,7 +42,7 @@
 					</span>
 				</div>  
 
-				<form class="login100-form validate-form" action="Login">
+				<form class="login100-form validate-form" action="LoginUtenteServlet" method="post">
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100">Username</span>
 						<input class="input100" type="text" name="username" placeholder="Enter username">
@@ -51,13 +51,16 @@
  
 					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
 						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="pass" placeholder="Enter password">
+						<input class="input100" type="password" name="password" placeholder="Enter password">
 						<span class="focus-input100"></span>
 					</div>
 					<br> <br>
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
-							Login
+						<button class="login100-form-btn" name="bottone" value="utente">
+							Login Utente
+						</button>
+						<button class="login100-form-btn" name="bottone" value="amministratore">
+							Login Amministratore
 						</button>
 					</div>  <br> <br>
 					<p> Non sei ancora registrato? <a href="registraUtente.jsp">Clicca qui!</a> <p>
@@ -66,7 +69,7 @@
 			</div>
 		</div>
 	</div>
-	
+		
 <!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
