@@ -60,7 +60,7 @@
 					<li><a href="login.jsp"><span
 							class="glyphicon glyphicon-log-in"></span> Login</a></li>
 					<%
-						} else {
+						} else { 
 					%>
 					<li><a href="carrello.jsp"> Carrello</a></li>
 					<li><a class="active" href="areaPersonale.jsp"> <%=username%></a></li>
