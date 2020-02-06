@@ -29,6 +29,9 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 	public CalendarioDAOImpl() throws ConnessioneException{
 		conn = SingletonConnection.getInstance();
 	}
+	
+	CatalogoDAOImpl catalogoDAOImpl = new CatalogoDAOImpl();
+	
 
 	/*
 	 * registrazione di una nuova edizione nel calendario dei corsi
@@ -139,7 +142,8 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 	public ArrayList<Edizione> select(int idCategoria) throws SQLException{
 			ArrayList<Edizione> edizioni=new ArrayList<Edizione>();
 			PreparedStatement ps=conn.prepareStatement("select * from calendario, catalogo where calendario.id_corso = catalogo.id_corso and id_categoria=?");
-
+			
+			
 			ps.setInt(1, idCategoria);
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()){
@@ -150,8 +154,11 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 				String aula=rs.getString("aula");
 				String docente=rs.getString("docente");
 
+				Corso corso = catalogoDAOImpl.select(idCorso);
+				
 				Edizione ediz =new Edizione(idCorso,dataInizio,durata,aula,docente);
 				ediz.setIdEdizione(idEdizione);
+				ediz.setCorso(corso);
 
 				long dataM = dataInizio.getTime();
 				long durataM= durata*86400000L;
@@ -189,9 +196,12 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 			String aula=rs.getString("aula");
 			String docente=rs.getString("docente");
 			
+			Corso corso = catalogoDAOImpl.select(idCorso);
 
 			Edizione ed = new Edizione(idCorso,dataInizio,durata,aula,docente);
 			ed.setIdEdizione(idEdizione);
+			ed.setCorso(corso);
+			
 
 			long dataM = dataInizio.getTime();
 			long durataM= durata*86400000L;
@@ -232,8 +242,11 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 			String aula=rs.getString("aula");
 			String docente=rs.getString("docente");
 
+			Corso corso = catalogoDAOImpl.select(idCorso);
+			
 			Edizione ed = new Edizione(idCorso,dataInizio,durata,aula,docente);
 			ed.setIdEdizione(idEdizione);
+			ed.setCorso(corso);
 
 			long dataM = dataInizio.getTime();
 			long durataM= durata*86400000L;
@@ -273,8 +286,10 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 				String aula=rs.getString("aula");
 				String docente=rs.getString("docente");
 
+				Corso corso = catalogoDAOImpl.select(idCorso);
 				Edizione e=new Edizione(idCorso,dataInizio,durata,aula,docente);
 				e.setIdEdizione(idEdizione);
+				e.setCorso(corso);
 
 				long dataM = dataInizio.getTime();
 				long durataM= durata*86400000L;
@@ -320,34 +335,28 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 			String aula = resultset.getString("aula");
 			String docente = resultset.getString("docente");
 
-			try {
-				CatalogoDAOImpl catalogoDAOImpl = new CatalogoDAOImpl();
-				Corso corso = catalogoDAOImpl.select(id_corso);
-				Calendar todayCalendar = Calendar.getInstance();
-				todayCalendar.set(Calendar.HOUR_OF_DAY, 0);
-				todayCalendar.set(Calendar.MINUTE, 0);
-				todayCalendar.set(Calendar.SECOND, 0);
+			Corso corso = catalogoDAOImpl.select(id_corso);
+			
+			Calendar todayCalendar = Calendar.getInstance();
+			todayCalendar.set(Calendar.HOUR_OF_DAY, 0);
+			todayCalendar.set(Calendar.MINUTE, 0);
+			todayCalendar.set(Calendar.SECOND, 0);
 
-				Date today = todayCalendar.getTime();
+			Date today = todayCalendar.getTime();
 
-				boolean terminata = (today.getTime() > (dataInizio.getTime() + TimeUnit.MILLISECONDS.convert(durata, TimeUnit.MILLISECONDS)));
-				Edizione e = new Edizione();
+			boolean terminata = (today.getTime() > (dataInizio.getTime() + TimeUnit.MILLISECONDS.convert(durata, TimeUnit.MILLISECONDS)));
+			Edizione e = new Edizione();
 
-				e.setAula(aula);
-				e.setIdEdizione(id_edizione);
-				e.setCorso(corso);
-				e.setDataInizio(dataInizio);
-				e.setDocente(docente);
-				e.setDurata((int)durata);
-				e.setIdCorso(id_corso);
-				e.setTerminata(terminata);
+			e.setAula(aula);
+			e.setIdEdizione(id_edizione);
+			e.setCorso(corso);
+			e.setDataInizio(dataInizio);
+			e.setDocente(docente);
+			e.setDurata((int)durata);
+			e.setIdCorso(id_corso);
+			e.setTerminata(terminata);
 
-				arrayList.add(e);
-
-			} catch (ConnessioneException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			arrayList.add(e);
 
 
 		}
@@ -368,6 +377,11 @@ public class CalendarioDAOImpl implements CalendarioDAO {
 
 		for(Edizione edizione : select(future)) {
 			if(edizione.getCorso().getIdCategoria() == idCaregotia) {
+				int idCorso = edizione.getIdCorso();
+				Corso corso = catalogoDAOImpl.select(idCorso);
+				
+				edizione.setCorso(corso);
+				
 				arrayList.add(edizione);
 			}
 		}

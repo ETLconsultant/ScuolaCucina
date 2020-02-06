@@ -88,8 +88,11 @@ public class Carrello {
 		
 		double somma = 0;
 		for(int i = 0 ; i < edizioniAcquistate.size(); i ++ ) {
-		somma += edizioniAcquistate.get(i).getCorso().getCosto();	//edizioniAcquistate contiene edizioni che contengono corso che contiene costo
-		System.out.println("costo totale carrello");
+		if(edizioniAcquistate.get(i).getCorso() != null){
+		somma = somma + edizioniAcquistate.get(i).getCorso().getCosto();	//edizioniAcquistate contiene edizioni che contengono corso che contiene costo
+		System.out.println("costo totale carrello = " + somma);
+		}
+		
 		}
 		
 		return somma;

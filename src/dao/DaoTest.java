@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import entity.Carrello;
+import entity.Corso;
 import entity.Edizione;
 import entity.Utente;
 import exceptions.ConnessioneException;
@@ -80,17 +81,25 @@ public class DaoTest {
 		bag.aggiungiEdizione(ed2);
 		bag.aggiungiEdizione(ed3);
 		
+		
+		
 		Edizione c = new Edizione();
 		
-
+		Corso corso = new Corso("corso giorgio", 95, 10, 44.5, "un corso bello bello");
+		
 		
 		 list = bag.getEdizioniAcquistate();
 		 
-		 System.out.println(list);
+//		 System.out.println(list);
 		 
 		 
 			c = bag.getEdizione(95);
-			System.out.println(c);
+			c.setCorso(corso);
+			System.out.println("prova" + c);
+			
+//			double prezzo = bag.getCostoTotale();
+			
+			System.out.println("il prezzo e = " + bag.getCostoTotale());
 		
 	}
 	
