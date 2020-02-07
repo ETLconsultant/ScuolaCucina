@@ -66,7 +66,7 @@ public class UpdateUtenteServlet extends HttpServlet {
 	        HttpSession sessione = request.getSession();
 			
 	        String idUtente = (String) sessione.getAttribute("username");
-	        boolean adm = (boolean)sessione.getAttribute("admin");
+	        String adm =(String.valueOf(sessione.getAttribute("admin")));
 	        
 			String cognome = request.getParameter("cognome");
 			String password = request.getParameter("password");
@@ -75,7 +75,7 @@ public class UpdateUtenteServlet extends HttpServlet {
 			String telefono = request.getParameter("telefono");
 			
 			
-			SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy"); 
+			SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd"); 
 			Date dataNascita = null;
 			try {
 				dataNascita = formatter1.parse(request.getParameter("dataNascita"));
@@ -92,7 +92,7 @@ public class UpdateUtenteServlet extends HttpServlet {
 			ub.setDataNascita(dataNascita);
 			ub.setTelefono(telefono);
 			ub.setEmail(email);
-			ub.setAdmin(adm);
+			ub.setAdmin(Boolean.parseBoolean(adm));
 
 
 					try {
@@ -104,15 +104,15 @@ public class UpdateUtenteServlet extends HttpServlet {
 					}
 
 					
-//					sessione.setAttribute("nome", ub.getNome());
-//					sessione.setAttribute("cognome", ub.getCognome());
-//					sessione.setAttribute("password", ub.getPassword());
-//					sessione.setAttribute("email", ub.getEmail());
-//					sessione.setAttribute("dataNascita", ub.getDataNascita());
-//					sessione.setAttribute("telefono", ub.getTelefono());
+					sessione.setAttribute("nome", ub.getNome());
+					sessione.setAttribute("cognome", ub.getCognome());
+					sessione.setAttribute("password", ub.getPassword());
+					sessione.setAttribute("email", ub.getEmail());
+					sessione.setAttribute("dataNascita", ub.getDataNascita());
+					sessione.setAttribute("telefono", ub.getTelefono());
 					
 					request.setAttribute("msg", "Aggiornamento dei dati avvenuto con successo!");
-					RequestDispatcher rd =request.getRequestDispatcher("/areaPersonale.jsp"); 
+					RequestDispatcher rd =request.getRequestDispatcher("/Home.jsp"); 
 					rd.forward(request, response);
 		}
 

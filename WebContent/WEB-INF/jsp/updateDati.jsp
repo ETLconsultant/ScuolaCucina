@@ -21,7 +21,8 @@
 <p Id="mex"></p>
 <form name="myForm" action="UpdateUtenteServlet" method="post"  onsubmit="fieldValidation()">
 
-
+<input type="hidden" name="username" value="username">
+					
 
 <p>Nome: </p>
 <input type ="text" name = "nome" size = "20px"  >

@@ -60,7 +60,7 @@ public class RegistrazioneUtenteDAOImpl implements RegistrazioneUtenteDAO {
 	public void update(Utente u) throws SQLException, DAOException {
 		String query = "update registrati set password=?, nome=?, cognome=?, dataNascita=?, email=?, telefono=? where id_utente=?";
 		
-		
+		System.out.println("sono nel metodo update");
 		    prepared=conn.prepareStatement(query);
 			prepared.setString(1, u.getPassword());
 			prepared.setString(2, u.getNome());

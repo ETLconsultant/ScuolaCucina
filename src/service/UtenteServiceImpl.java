@@ -78,6 +78,7 @@ public class UtenteServiceImpl implements UtenteService {
 			if(u!=null) {
 				return u;
 			}else {
+				System.out.println("ok else utente");
 				return daoU.select(idUtente, psw);
 			}
 			
@@ -123,8 +124,10 @@ public class UtenteServiceImpl implements UtenteService {
 		try {
 			System.out.println("sono nel metodo service");
 			if(u.isAdmin()) {
+				System.out.println("sono un amministratore");
 				daoA.update(u);
 			}else {
+				System.out.println("sono nell'else di service, sono un utente");
 				daoU.update(u);
 			}
 			

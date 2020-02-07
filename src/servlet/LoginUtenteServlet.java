@@ -69,7 +69,7 @@ public class LoginUtenteServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		session.setAttribute("username", idGenerico);
-		
+		session.setAttribute("admin", adm);
 		user.setIdUtente(idGenerico);
 		user.setPassword(password);
 		user.setAdmin(Boolean.parseBoolean(adm));

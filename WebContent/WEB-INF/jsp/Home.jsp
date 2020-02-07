@@ -12,10 +12,13 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <%@include file="Header.jsp"%>
 <title>Home Page</title>
+<% String message = (String)request.getAttribute("msg");%>
 <% String messageLogout = (String)request.getAttribute("messageLogout");%>
 </head>
 <body>
-
+<%if (message!=null ){%>
+<%=message %>
+<%} %>
 <%if (messageLogout!=null ){%>
 <%=messageLogout %>
 <%} %>
