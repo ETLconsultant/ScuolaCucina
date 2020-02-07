@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import entity.Utente;
 import exceptions.ConnessioneException;
@@ -30,6 +31,7 @@ public class RegistrazioneUtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 
 		//invocazione al validatore per il controllo dei campi
 		List<ErroreValidazione> lista = Validatore.validazioneUtente(request);
@@ -37,6 +39,8 @@ public class RegistrazioneUtenteServlet extends HttpServlet {
 			request.setAttribute("lista", lista );
 			getServletContext().getRequestDispatcher("/WEB-INF/jsp/registraUtente.jsp").forward(request, response);
 		}
+		
+		
 
 		UtenteService serviceU;
 		serviceU = new UtenteServiceImpl();
@@ -57,7 +61,7 @@ public class RegistrazioneUtenteServlet extends HttpServlet {
 	}
 
 	private Utente getUtenteFromQueryString(HttpServletRequest request){
-		String idGenerico= request.getParameter("idUtente");
+		String idGenerico= request.getParameter("username");
 		String password = request.getParameter("password");
 		String nome = request.getParameter("nome");
 		String cognome = request.getParameter("cognome");
@@ -84,6 +88,8 @@ public class RegistrazioneUtenteServlet extends HttpServlet {
 		String telefono = request.getParameter("telefono");
 
 		boolean adm = Boolean.valueOf(request.getParameter("admin"));
+//		HttpSession sessione = request.getSession();
+//		sessione.setAttribute("admin", adm);
 		System.out.println("stampa: " + adm);
 		System.out.println(new Utente(idGenerico, password, nome, cognome, date, email, telefono, adm));
 
