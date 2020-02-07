@@ -66,10 +66,12 @@ public class LoginUtenteServlet extends HttpServlet {
 		session.setAttribute("messageLogin", messageLogin);
 		String idGenerico = request.getParameter("username");
 		String password = request.getParameter("password");
+		
 		session.setAttribute("username", idGenerico);
+		boolean adm = (boolean)session.getAttribute("admin");
 		user.setIdUtente(idGenerico);
 		user.setPassword(password);
-		
+		user.setAdmin(adm);
 	
 		String submit=request.getParameter("bottone");
 		

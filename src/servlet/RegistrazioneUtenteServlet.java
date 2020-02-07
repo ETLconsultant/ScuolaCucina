@@ -88,8 +88,8 @@ public class RegistrazioneUtenteServlet extends HttpServlet {
 		String telefono = request.getParameter("telefono");
 
 		boolean adm = Boolean.valueOf(request.getParameter("admin"));
-//		HttpSession sessione = request.getSession();
-//		sessione.setAttribute("admin", adm);
+		HttpSession sessione = request.getSession();
+		sessione.setAttribute("admin", adm);
 		System.out.println("stampa: " + adm);
 		System.out.println(new Utente(idGenerico, password, nome, cognome, date, email, telefono, adm));
 

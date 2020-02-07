@@ -121,9 +121,9 @@ public class UtenteServiceImpl implements UtenteService {
 	@Override
 	public void modificaDatiUtente(Utente u) throws DAOException, SQLException {
 		try {
+			System.out.println("sono nel metodo service");
 			if(u.isAdmin()) {
-				Utente amministratore=u;
-				daoA.update(amministratore);
+				daoA.update(u);
 			}else {
 				daoU.update(u);
 			}

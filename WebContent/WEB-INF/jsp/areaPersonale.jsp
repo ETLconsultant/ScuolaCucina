@@ -6,11 +6,14 @@
 <meta charset="ISO-8859-1">
 <%@include file="Header.jsp"%>
 <title>Area Personale</title>
-<%String username1 = (String) session.getAttribute("username"); %>
+<%String username1 = (String) session.getAttribute("username");
+boolean admin = (boolean) session.getAttribute("admin");
+%>
 <link rel="stylesheet" type="text/css" href="css/form.css">
 <link rel="stylesheet" type="text/css" href="css/areaP.css">
 </head>
 <body>
+
  <div class="wrap"> 
 	<p>
 		Ciao

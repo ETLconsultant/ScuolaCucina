@@ -10,19 +10,33 @@
 <title>Aggiorna dati</title>
 </head>
 <body>
-<div align="center"> 
+	<%
+		String messaggio = (String) request.getAttribute("msg");
+		if (messaggio != null) {
+			out.println(messaggio);
+		}
+	%>
+	<div align="center"> 
 
 <p Id="mex"></p>
-<form name="myForm" action="Update" method="post"  onsubmit="fieldValidation()">
+<form name="myForm" action="UpdateUtenteServlet" method="post"  onsubmit="fieldValidation()">
 
-<p>Username: </p>
-<input type ="text" name = "username" size = "20px"  >
+
 
 <p>Nome: </p>
 <input type ="text" name = "nome" size = "20px"  >
 
 <p>Cognome: </p>
 <input type ="text" name = "cognome" size = "20px"  >
+
+<p>Data di Nascita: </p>
+<input type ="date" name = "dataNascita" size = "20px"  >
+
+<p>Email: </p>
+<input type ="text" name = "email" size = "20px"  >
+
+<p>Telefono: </p>
+<input type ="text" name = "telefono" size = "20px"  >
 
 <p>Password:</p>
 <input type ="password" name = "password" size = "20px" >

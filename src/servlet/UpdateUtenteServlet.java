@@ -43,10 +43,10 @@ public class UpdateUtenteServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		// TODO Auto-generated method stub
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+//	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -65,8 +65,9 @@ public class UpdateUtenteServlet extends HttpServlet {
 			
 	        HttpSession sessione = request.getSession();
 			
-	        String idUtente = (String) sessione.getAttribute("id_utente");
-			
+	        String idUtente = (String) sessione.getAttribute("username");
+	        boolean adm = (boolean)sessione.getAttribute("admin");
+	        
 			String cognome = request.getParameter("cognome");
 			String password = request.getParameter("password");
 			String nome = request.getParameter("nome");
@@ -83,9 +84,6 @@ public class UpdateUtenteServlet extends HttpServlet {
 				e1.printStackTrace();
 			} 
 			
-		
-			
-			
 			//setto il nuovo utente
 			ub.setIdUtente(idUtente);
 			ub.setCognome(cognome);
@@ -94,22 +92,24 @@ public class UpdateUtenteServlet extends HttpServlet {
 			ub.setDataNascita(dataNascita);
 			ub.setTelefono(telefono);
 			ub.setEmail(email);
+			ub.setAdmin(adm);
 
 
 					try {
+						System.out.println("sono nel try");
 						us.modificaDatiUtente(ub);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
-					sessione.setAttribute("id_utente", ub.getIdUtente());
-					sessione.setAttribute("nome", ub.getNome());
-					sessione.setAttribute("cognome", ub.getCognome());
-					sessione.setAttribute("password", ub.getPassword());
-					sessione.setAttribute("email", ub.getEmail());
-					sessione.setAttribute("dataNascita", ub.getDataNascita());
-					sessione.setAttribute("telefono", ub.getTelefono());
+					
+//					sessione.setAttribute("nome", ub.getNome());
+//					sessione.setAttribute("cognome", ub.getCognome());
+//					sessione.setAttribute("password", ub.getPassword());
+//					sessione.setAttribute("email", ub.getEmail());
+//					sessione.setAttribute("dataNascita", ub.getDataNascita());
+//					sessione.setAttribute("telefono", ub.getTelefono());
 					
 					request.setAttribute("msg", "Aggiornamento dei dati avvenuto con successo!");
 					RequestDispatcher rd =request.getRequestDispatcher("/areaPersonale.jsp"); 
