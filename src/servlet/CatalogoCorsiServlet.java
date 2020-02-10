@@ -38,19 +38,17 @@ public class CatalogoCorsiServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		ArrayList<Corso> corsi= new ArrayList<Corso>();
 		HttpSession sessione=request.getSession();
 		String idUtente = (String) sessione.getAttribute("username");
 		
 		try {
 			corsoService = new CorsoServiceImpl();
+			corsi = corsoService.visualizzaCatalogoCorsi();
+			
 		} catch (ConnessioneException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		ArrayList<Corso> corsi= new ArrayList<Corso>();
-		try {
-			corsi = corsoService.visualizzaCatalogoCorsi();
+			e1.printStackTrace();	
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
