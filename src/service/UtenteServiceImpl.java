@@ -79,6 +79,7 @@ public class UtenteServiceImpl implements UtenteService {
 				return u;
 			}else {
 				System.out.println("ok else utente");
+				System.out.println(daoU.select(idUtente, psw));
 				return daoU.select(idUtente, psw);
 			}
 			

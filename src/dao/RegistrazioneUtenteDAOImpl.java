@@ -89,12 +89,11 @@ public class RegistrazioneUtenteDAOImpl implements RegistrazioneUtenteDAO {
 		    prepared=conn.prepareStatement(query);
 			prepared.setString(1, idUtente);
 			int n =prepared.executeUpdate();
+			System.out.println("N dell'esecuzione della query in delete: " + n);
 			if(n==0)
 			throw new SQLException("utente: " + idUtente + " non cancellabile");
 			
 			close();
-		
-
 
 	}
 	

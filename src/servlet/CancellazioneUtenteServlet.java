@@ -60,6 +60,7 @@ public class CancellazioneUtenteServlet extends HttpServlet {
 
 		try {
 			try {
+				System.out.println(idUtente);
 				us.cancellaRegistrazioneUtente(idUtente);
 			} catch (DAOException e) {
 				// TODO Auto-generated catch block
