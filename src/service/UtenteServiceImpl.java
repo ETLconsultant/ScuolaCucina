@@ -101,7 +101,7 @@ public class UtenteServiceImpl implements UtenteService {
 				daoU.delete(idUtente);
 			
 		}catch (DAOException e) {
-			throw new DAOException("Utente/Amministratore non cancellabile", e);
+			throw new DAOException("Utente non cancellabile", e);
 		}
 
 	}

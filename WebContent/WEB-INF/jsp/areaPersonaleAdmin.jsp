@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<title>Area Personale Admin</title>
 <%@include file="Header.jsp"%>
 <%String username1 = (String) session.getAttribute("username"); %>
 <link rel="stylesheet" type="text/css" href="css/areaP.css">
-<title>Area Personale Admin</title>
 </head>
 <body>
 <div class="wrap">

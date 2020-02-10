@@ -10,7 +10,7 @@ import exceptions.DAOException;
 public interface UtenteService {
 
 	public void registrazioneUtente(Utente u) throws DAOException, SQLException;  
-	public Utente checkCredenziali(String idUtente,String psw) throws DAOException, SQLException; 
+	public Utente checkCredenziali(String idUtente,String psw) throws DAOException, SQLException;
 	public void cancellaRegistrazioneUtente(String idUtente) throws DAOException, SQLException;
 	public void modificaDatiUtente(Utente u) throws DAOException, SQLException;
 	public ArrayList<Utente> visualizzaUtentiRegistrati() throws DAOException, SQLException;

@@ -4,8 +4,8 @@
 <html>
 <head> 
 <meta charset="ISO-8859-1">
-<%@include file="Header.jsp"%>
 <title>Area Personale</title>
+<%@include file="Header.jsp"%>
 <%String username1 = (String) session.getAttribute("username");
 //boolean admin = (boolean) session.getAttribute("admin");
 %>

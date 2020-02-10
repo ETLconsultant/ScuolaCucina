@@ -4,10 +4,10 @@
 <html>
 <head> 
 <meta charset="ISO-8859-1">
+<title>Aggiorna dati</title>
 <%@include file="Header.jsp"%>
 <link rel="stylesheet" type="text/css" href="css/form.css">
 <script type="text/javascript" src="js/gestioneForm.js"></script>
-<title>Aggiorna dati</title>
 </head>
 <body>
 	<%

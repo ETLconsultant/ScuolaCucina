@@ -45,8 +45,6 @@ public class RegistrazioneUtenteDAOImpl implements RegistrazioneUtenteDAO {
 				u=select(u.getIdUtente(), u.getPassword());
 				throw new SQLException("utente: " + u.getIdUtente() + " già inserito");
 			}
-			
-			
 			close();
 		
 	}
@@ -118,16 +116,13 @@ public class RegistrazioneUtenteDAOImpl implements RegistrazioneUtenteDAO {
 					u1.setEmail(rs.getString("email"));
 					u1.setTelefono(rs.getString("telefono"));
 					u.add(u1);
-					
 				}
 				close();
 				return u;
-				
 			}else {
 				close();
 				return u;
 			}	
-		
 	}
 
 	
@@ -147,25 +142,19 @@ public class RegistrazioneUtenteDAOImpl implements RegistrazioneUtenteDAO {
 			
 			if(rs.next()){
 			
-			u1.setIdUtente(rs.getString("id_utente"));
-			u1.setPassword(rs.getString("password"));
-			u1.setNome(rs.getString("nome"));
-			u1.setCognome(rs.getString("cognome"));
-			u1.setDataNascita(rs.getDate("dataNascita"));
-			u1.setEmail(rs.getString("email"));
-			u1.setTelefono(rs.getString("telefono"));
-			close();
-			return u1;
-			}
-			
-			else
+				u1.setIdUtente(rs.getString("id_utente"));
+				u1.setPassword(rs.getString("password"));
+				u1.setNome(rs.getString("nome"));
+				u1.setCognome(rs.getString("cognome"));
+				u1.setDataNascita(rs.getDate("dataNascita"));
+				u1.setEmail(rs.getString("email"));
+				u1.setTelefono(rs.getString("telefono"));
+				close();
+				return u1;
+			}else {
 				close();
 				throw new SQLException("utente: " + idUtente + " non presente");
-			
-			
-
-			
-		
+			}
 	}
 
 	@Override
@@ -181,9 +170,7 @@ public class RegistrazioneUtenteDAOImpl implements RegistrazioneUtenteDAO {
 				rs.close();
 			}catch (SQLException e) {
 				e.printStackTrace();
-			}
-		
-		
+			}		
 	}
 
 }

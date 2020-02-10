@@ -10,8 +10,8 @@
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<%@include file="Header.jsp"%>
 <title>Home Page</title> 
+<%@include file="Header.jsp"%>
 <% String messageDelete = (String)request.getAttribute("msg1");%>
 <% String message = (String)request.getAttribute("msg");%>
 <% String messageLogout = (String)request.getAttribute("messageLogout");%>

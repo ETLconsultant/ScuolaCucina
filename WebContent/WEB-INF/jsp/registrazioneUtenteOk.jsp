@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Registrazione effettuata</title>
 <%@include file="Header.jsp"%>
 <style>
 .wrap{
@@ -15,9 +16,7 @@
  p{
  font-size: 18px;
  }
-
 </style>
-<title>Registrazione effettuata</title>
 </head>
 <body>
 <div class="wrap">

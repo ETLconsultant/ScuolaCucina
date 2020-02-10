@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,59 +54,70 @@
 </style>
 </head>
 <body>
-	<h2>My Customers</h2>
+	<%
+		String username = (String) session.getAttribute("username");
+	%>
+
+	<h2>Elenco Corsi</h2>
+
 	<select id="mylist" onchange="myFunction()" class='form-control'>
 		<option>A</option>
 		<option>b</option>
 		<option>c</option>
 	</select>
-	<select id="mylist" onchange="myFunction()" class='form-control'>
-		<option>A</option>
-		<option>b</option>
-		<option>c</option>
-	</select>
 
+	<div>
+		<table id="myTable">
+			<tr class="header">
+				<td><%="Codice Corso"%>
+				<td><%="Titolo"%>
+				
+				<td><%="Categoria"%>
+				
+				<td><%="Partecipanti Max"%>
+				
+				<td><%="Costo"%>
+				
+				<td><%="Descrizione"%>
+			
+			</tr>
+			<c:forEach var="lista" items="${requestScope.listaStanze}">
+				<br>
+				<tr id="effetto">
+					<td><c:out value="${lista.codice}">
+						</c:out></td>
+					<td><c:out value="${ lista.titolo}">
+						</c:out></td>
+					<td><c:out value="${lista.idCategoria}">
+						</c:out></td>
+					<td><c:out value="${lista.maxPartecipanti}">
+						</c:out></td>
+					<td><c:out value="${lista.costo}">
+						</c:out></td>
+					<td><c:out value="${lista.descrizione}">
+						</c:out></td>
+	<!-- <td size=40px><c:choose>
+							<c:when test="${lista.disponibile}">
+								<form action="Prenota" class="form">
+									<button id="centrato" type="submit" name="button"
+										value="${lista.numeroStanza}">Prenota</button>
+								</form>
+							</c:when>
+							<c:otherwise>
+								<div class="form">
+									<button id="no_button" type="button"">Già Prenotata</button>
+								</div>
 
-	<table id="myTable">
-		<tr class="header">
-			<th style="width: 60%;">Name</th>
-			<th style="width: 40%;">Country</th>
-		</tr>
-		<tr>
-			<td>Alfreds Futterkiste</td>
-			<td>Germany</td>
-		</tr>
-		<tr>
-			<td>Berglunds snabbkop</td>
-			<td>Sweden</td>
-		</tr>
-		<tr>
-			<td>Island Trading</td>
-			<td>UK</td>
-		</tr>
-		<tr>
-			<td>Koniglich Essen</td>
-			<td>Germany</td>
-		</tr>
-		<tr>
-			<td>Laughing Bacchus Winecellars</td>
-			<td>Canada</td>
-		</tr>
-		<tr>
-			<td>Magazzini Alimentari Riuniti</td>
-			<td>Italy</td>
-		</tr>
-		<tr>
-			<td>North/South</td>
-			<td>UK</td>
-		</tr>
-		<tr>
-			<td>Paris specialites</td>
-			<td>France</td>
-		</tr>
-	</table>
+							</c:otherwise>
+						</c:choose></td> -->				
+				</tr>
 
-	<script>
+			</c:forEach>
+
+		</table>
+
+	
+</div> <script>
 		function myFunction() {
 			var input, filter, table, tr, td, i;
 			input = document.getElementById("mylist");
@@ -125,5 +137,6 @@
 		}
 	</script>
 
-</body>
+
+				</body>
 </html>

@@ -34,7 +34,7 @@
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-left">
 					<li><a href="#about">Chi siamo</a></li>
-					<li><a href="catalogo.jsp">Catalogo</a></li>
+					<li><a href="CatalogoCorsi">Catalogo</a></li>
 					<li><a href="calendario.jsp">Calendario</a></li>
 				</ul> 
 
