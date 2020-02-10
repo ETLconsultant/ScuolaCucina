@@ -2,6 +2,11 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -49,17 +54,26 @@ public class CancellazioneUtenteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		List<validator.ErroreValidazione> lista = validator.Validatore.validazioneUtente(request);
+
+		if(lista.size()!=0){
+			request.setAttribute("lista", lista );
+			System.out.println(lista);
+			getServletContext().getRequestDispatcher("/updateDati.jsp").forward(request, response);
+			return;
+		}
 
 		HttpSession sessione = request.getSession();
 
 		String idUtente = (String) sessione.getAttribute("username");
 
-		ub.setIdUtente(idUtente);
-
-
-
 		try {
-			us.cancellaRegistrazioneUtente(idUtente);
+			try {
+				us.cancellaRegistrazioneUtente(idUtente);
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			request.setAttribute("msg1", "Cancellazione avvenuta con successo. Torna presto a trovarci!");
 			sessione.invalidate();
 			RequestDispatcher rd =request.getRequestDispatcher("/Home.jsp"); 
@@ -69,8 +83,5 @@ public class CancellazioneUtenteServlet extends HttpServlet {
 		}
 	}
 
-
-
 }
 
-}

@@ -12,12 +12,16 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <%@include file="Header.jsp"%>
 <title>Home Page</title> 
+<% String messageDelete = (String)request.getAttribute("msg1");%>
 <% String message = (String)request.getAttribute("msg");%>
 <% String messageLogout = (String)request.getAttribute("messageLogout");%>
 </head>
 <body>
 <%if (message!=null ){%>
 <%=message %>
+<%} %>
+<%if (messageDelete!=null ){%>
+<%=messageDelete %>
 <%} %>
 <%if (messageLogout!=null ){%>
 <%=messageLogout %>

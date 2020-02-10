@@ -97,21 +97,12 @@ public class UtenteServiceImpl implements UtenteService {
 	@Override
 	public void cancellaRegistrazioneUtente(String idUtente) throws DAOException, SQLException {
 		try {
-			Utente u = new Utente();
-			if(u.isAdmin()) {
-				String idAmministratore = idUtente;
-				daoA.delete(idAmministratore);
-			}else {
 				daoU.delete(idUtente);
-			}
 			
 		}catch (DAOException e) {
 			throw new DAOException("Utente/Amministratore non cancellabile", e);
-			
-			
 		}
-		
-		
+
 	}
 
 	/*
@@ -133,8 +124,7 @@ public class UtenteServiceImpl implements UtenteService {
 			
 		}catch (DAOException e) {
 			throw new DAOException("Utente/Amministratore non presente", e);
-			
-			
+		
 		}
 		
 		

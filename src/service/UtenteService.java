@@ -9,13 +9,13 @@ import exceptions.DAOException;
 
 public interface UtenteService {
 
-	void registrazioneUtente(Utente u) throws DAOException, SQLException;  
-	Utente checkCredenziali(String idUtente,String psw) throws DAOException, SQLException; 
-	void cancellaRegistrazioneUtente(String idUtente) throws DAOException, SQLException;
-	void modificaDatiUtente(Utente u) throws DAOException, SQLException;
-	ArrayList<Utente> visualizzaUtentiRegistrati() throws DAOException, SQLException;
-	void inserisciFeedback(Feedback f) throws DAOException, SQLException;
-	void modificaFeedback(Feedback feedback) throws DAOException, SQLException;
-	void cancellaFeedback(int idFeedback)throws DAOException, SQLException;
+	public void registrazioneUtente(Utente u) throws DAOException, SQLException;  
+	public Utente checkCredenziali(String idUtente,String psw) throws DAOException, SQLException; 
+	public void cancellaRegistrazioneUtente(String idUtente) throws DAOException, SQLException;
+	public void modificaDatiUtente(Utente u) throws DAOException, SQLException;
+	public ArrayList<Utente> visualizzaUtentiRegistrati() throws DAOException, SQLException;
+	public void inserisciFeedback(Feedback f) throws DAOException, SQLException;
+	public void modificaFeedback(Feedback feedback) throws DAOException, SQLException;
+	public void cancellaFeedback(int idFeedback)throws DAOException, SQLException;
 	
 }
