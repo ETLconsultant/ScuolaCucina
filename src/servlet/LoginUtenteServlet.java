@@ -27,22 +27,22 @@ public class LoginUtenteServlet extends HttpServlet {
 	Utente user = new Utente();
 	String messageLogin="  ";
 	String messageArea=" ";
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginUtenteServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public LoginUtenteServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-//	}
+	//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	//		// TODO Auto-generated method stub
+	//		response.getWriter().append("Served at: ").append(request.getContextPath());
+	//	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -50,16 +50,16 @@ public class LoginUtenteServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		userservice = new UtenteServiceImpl();
 		List<ErroreValidazione> lista = Validatore.validazioneUtente(request);
-		 
+
 		if(lista.size()!=0){
 			request.setAttribute("lista", lista);
 			System.out.println(lista);
 			getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
 			return;
 		} 
-		
-//		request.removeAttribute("nome");
-//		request.removeAttribute("cognome");
+
+		request.removeAttribute("nome");
+		request.removeAttribute("cognome");
 		System.out.println("Entrato nella servlet login");
 		HttpSession session = request.getSession();
 		session.setAttribute("messageArea", messageArea);
@@ -67,26 +67,26 @@ public class LoginUtenteServlet extends HttpServlet {
 		String adm =(String.valueOf(session.getAttribute("admin")));
 		String idGenerico = request.getParameter("username");
 		String password = request.getParameter("password");
-		
+
 		session.setAttribute("username", idGenerico);
 		session.setAttribute("admin", adm);
 		user.setIdUtente(idGenerico);
 		user.setPassword(password);
 		user.setAdmin(Boolean.parseBoolean(adm));
-	
+
 		String submit=request.getParameter("bottone");
-		
+
 		if (submit.equalsIgnoreCase("amministratore")) {
 			System.out.println("if submit.equalsIgnoreCase(\"amministratore\") " + submit);
 			try {
 				if (userservice.checkCredenziali(idGenerico, password)!= null){
-//				messageLogin="idAmministratore o password corretti";
-//				session.setAttribute("messageLogin", messageLogin);
+					//				messageLogin="idAmministratore o password corretti";
+					//				session.setAttribute("messageLogin", messageLogin);
 					System.out.println("nell'if di amministratore login5");
 					RequestDispatcher rd = request.getRequestDispatcher("/areaPersonaleAdmin.jsp");
 					rd.forward(request, response);
 					return;
-					
+
 				}else {
 					messageLogin="idAmministratore o password errati";
 					session.setAttribute("messageLogin", messageLogin);
@@ -125,10 +125,10 @@ public class LoginUtenteServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 
-	}
-					
-					
+		}
+
+
 	}
 }
-	
-	
+
+
