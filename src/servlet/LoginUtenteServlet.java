@@ -60,7 +60,7 @@ public class LoginUtenteServlet extends HttpServlet {
 		
 //		request.removeAttribute("nome");
 //		request.removeAttribute("cognome");
-		System.out.println("Entrato nella servlet.");
+		System.out.println("Entrato nella servlet login");
 		HttpSession session = request.getSession();
 		session.setAttribute("messageArea", messageArea);
 		session.setAttribute("messageLogin", messageLogin);
@@ -82,7 +82,7 @@ public class LoginUtenteServlet extends HttpServlet {
 				if (userservice.checkCredenziali(idGenerico, password)!= null){
 //				messageLogin="idAmministratore o password corretti";
 //				session.setAttribute("messageLogin", messageLogin);
-					System.out.println("nell'if di amministratore");
+					System.out.println("nell'if di amministratore login5");
 					RequestDispatcher rd = request.getRequestDispatcher("/areaPersonaleAdmin.jsp");
 					rd.forward(request, response);
 					return;
@@ -102,7 +102,7 @@ public class LoginUtenteServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}else {
-			System.out.println("else");
+			System.out.println("else login");
 			try {
 				if (userservice.checkCredenziali(idGenerico, password)!=null) {
 					RequestDispatcher rd = request.getRequestDispatcher("/areaPersonale.jsp");
