@@ -38,13 +38,13 @@ public class Validatore{
 //		String dataNascita = giorno + "-" + mese + "-" + anno;
 		String dataNascita = request.getParameter("dataNascita");
 
-		if(idUtente == null || idUtente.length()==0) {
+		if(idUtente == null || idUtente.length()== 0) {
 			lista.add(new ErroreValidazione("idUtente", "idUtente " + bundle.getString("error.required")));
 			System.out.println("idUtente == null || idUtente.length()==0");
 		}
 		
 		if(idUtente.length() > 50) {
-			lista.add(new ErroreValidazione("idUtente", "idUtente " + bundle.getString("error.minlength") + " 50"));
+			lista.add(new ErroreValidazione("idUtente", "idUtente " + bundle.getString("error.maxlength") + " 50"));
 			System.out.println("idUtente.length() > 50");
 		}
 

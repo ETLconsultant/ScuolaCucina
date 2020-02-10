@@ -54,15 +54,6 @@ public class CancellazioneUtenteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		List<validator.ErroreValidazione> lista = validator.Validatore.validazioneUtente(request);
-
-		if(lista.size()!=0){
-			request.setAttribute("lista", lista );
-			System.out.println(lista);
-			getServletContext().getRequestDispatcher("/updateDati.jsp").forward(request, response);
-			return;
-		}
-
 		HttpSession sessione = request.getSession();
 
 		String idUtente = (String) sessione.getAttribute("username");
