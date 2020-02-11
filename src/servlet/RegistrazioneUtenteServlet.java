@@ -87,24 +87,25 @@ public class RegistrazioneUtenteServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String telefono = request.getParameter("telefono");
 
-		boolean adm = Boolean.valueOf(request.getParameter("admin"));
-		HttpSession sessione = request.getSession();
-		sessione.setAttribute("admin", adm);
-		System.out.println("stampa: " + adm);
-		System.out.println(new Utente(idGenerico, password, nome, cognome, date, email, telefono, adm));
+		String admin = request.getParameter("admin");
+		if(admin.equalsIgnoreCase("true") || admin.equalsIgnoreCase("false")) {
+		   boolean adm = Boolean.valueOf(admin);
+		   HttpSession sessione = request.getSession();
+		   sessione.setAttribute("admin", adm);
+		   System.out.println("stampa: " + adm);
+		   
+		   System.out.println(new Utente(idGenerico, password, nome, cognome, date, email, telefono, adm));
 
-		return new Utente(idGenerico, password, nome, cognome, date, email, telefono, adm);
-
-
-
-
-
-
-
-
-
-
-
+		  return new Utente(idGenerico, password, nome, cognome, date, email, telefono, adm);
+		
+		}else {
+			try {
+				throw new Exception();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return new Utente();
+		}
 
 	}
 
