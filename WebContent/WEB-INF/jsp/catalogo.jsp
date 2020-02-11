@@ -81,20 +81,20 @@
 				<td><%="Descrizione"%>
 			
 			</tr>
-			<c:forEach var="lista" items="${requestScope.listaStanze}">
+			<c:forEach var="corsi" items="${requestScope.corsi}">
 				<br>
 				<tr id="effetto">
-					<td><c:out value="${lista.codice}">
+					<td><c:out value="${corsi.codice}">
 						</c:out></td>
-					<td><c:out value="${ lista.titolo}">
+					<td><c:out value="${corsi.titolo}">
 						</c:out></td>
-					<td><c:out value="${lista.idCategoria}">
+					<td><c:out value="${corsi.idCategoria}">
 						</c:out></td>
-					<td><c:out value="${lista.maxPartecipanti}">
+					<td><c:out value="${corsi.maxPartecipanti}">
 						</c:out></td>
-					<td><c:out value="${lista.costo}">
+					<td><c:out value="${corsi.costo}">
 						</c:out></td>
-					<td><c:out value="${lista.descrizione}">
+					<td><c:out value="${corsi.descrizione}">
 						</c:out></td>
 	<!-- <td size=40px><c:choose>
 							<c:when test="${lista.disponibile}">

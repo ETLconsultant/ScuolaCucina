@@ -42,7 +42,7 @@ public class CatalogoCorsiServlet extends HttpServlet {
 		ArrayList<Corso> corsi= new ArrayList<Corso>();
 		HttpSession sessione=request.getSession();
 		String idUtente = (String) sessione.getAttribute("username");
-		
+		System.out.println("Sono nella servlet catalogo");
 		try {
 			corsoService = new CorsoServiceImpl();
 			corsi = corsoService.visualizzaCatalogoCorsi();
