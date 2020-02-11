@@ -17,15 +17,15 @@ import exceptions.DAOException;
 import service.CorsoService;
 import service.CorsoServiceImpl;
 
-
-
 /**
- * Servlet implementation class CalendarioCorsi
+ * Servlet implementation class CatalogoCorsiServlet
  */
-@WebServlet("/CatalogoCorsi")
+@WebServlet("/CatalogoCorsiServlet")
 public class CatalogoCorsiServlet extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
-	CorsoServiceImpl corsoService;
+    CorsoService corsoService;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -58,8 +58,8 @@ public class CatalogoCorsiServlet extends HttpServlet {
 		request.setAttribute("corsi", corsi);
 		RequestDispatcher rd= request.getRequestDispatcher("/catalogo.jsp");
 		rd.forward(request, response);
-		
 	}
+
 
 
 }
