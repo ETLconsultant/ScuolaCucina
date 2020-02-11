@@ -52,7 +52,7 @@
 				<%
 			
 				String idUtente = (String) session.getAttribute("username");
-				Boolean adm = Boolean.parseBoolean((String.valueOf(session.getAttribute("admin"))));
+				//Boolean adm = Boolean.parseBoolean((String.valueOf(session.getAttribute("admin"))));
 			
 				
 					String messaggio = (String) request.getAttribute("messageLogin");
@@ -94,21 +94,12 @@
 						type="hidden" name="telefono" value="0123456789"> <input
 						type="hidden" name="admin" value="false">
 
-
 					<div class="container-login100-form-btn">
-						<% System.out.println(adm);
-						if(adm == true){%>
-								<button class="login100-form-btn" name="bottone"
+		
+					<button class="login100-form-btn" name="bottone"
 									value="amministratore">Login Amministratore</button>
-								<button class="login100-form-btn" name="bottone" value="utente"
-									disabled>Login Utente</button>
-						<%}else{%>
-								<button class="login100-form-btn" name="bottone"
-									value="amministratore" disabled>Login Amministratore</button>
-								<button class="login100-form-btn" name="bottone" value="utente">Login
-									Utente</button>
-						<%}%>
-						
+					<button class="login100-form-btn" name="bottone" value="utente"
+									>Login Utente</button>
 
 					</div>
 					<br> <br>

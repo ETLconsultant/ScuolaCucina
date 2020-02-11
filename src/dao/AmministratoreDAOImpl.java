@@ -132,6 +132,7 @@ public class AmministratoreDAOImpl implements AmministratoreDAO {
 			amministratore.setDataNascita(rs.getDate("dataNascita"));
 			amministratore.setEmail(rs.getString("email"));
 			amministratore.setTelefono(rs.getString("telefono"));
+			amministratore.setAdmin(true);
 			close();
 			return amministratore;
 		}

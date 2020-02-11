@@ -149,6 +149,7 @@ public class RegistrazioneUtenteDAOImpl implements RegistrazioneUtenteDAO {
 				u1.setDataNascita(rs.getDate("dataNascita"));
 				u1.setEmail(rs.getString("email"));
 				u1.setTelefono(rs.getString("telefono"));
+				u1.setAdmin(false);
 				close();
 				return u1;
 			}else {

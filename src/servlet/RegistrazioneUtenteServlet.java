@@ -96,7 +96,7 @@ public class RegistrazioneUtenteServlet extends HttpServlet {
 		   
 		   System.out.println(new Utente(idGenerico, password, nome, cognome, date, email, telefono, adm));
 
-		  return new Utente(idGenerico, password, nome, cognome, date, email, telefono, adm);
+		   return new Utente(idGenerico, password, nome, cognome, date, email, telefono, adm);
 		
 		}else {
 			try {
